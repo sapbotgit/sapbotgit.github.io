@@ -1,2 +1,2 @@
-setval a 0
-debval a
+setval 0
+debval
