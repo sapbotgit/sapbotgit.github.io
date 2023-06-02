@@ -9,16 +9,19 @@
   games = ["sapbotsadventure"]
   keys = {"sapbotsadventure":"DSASDD-HDSJJD-HDJSJD"}
   
+  def get(text):
+      return input(text)
+  
   while True:
-      game = input('Введите название игры в которую хотите поиграть').lower().replace(" ", "")
+      game = get('Введите название игры в которую хотите поиграть').lower().replace(" ", "")
       if game in games:
           break
       else:
           print('Игра не найдена, список игр: {}'.format(games))
   
   for i in range(keycount):
-      key = input(''Введите ключ к {}'.format(game)')
-      if key == keys['game']:
+      key = get('Введите ключ к {}'.format(game)')
+      if key == keys[game]:
           window.location.href = "https://sapbotgit.github.io/games/{}/index.html".format(game)
       else:
           print('Неверный ключ')
