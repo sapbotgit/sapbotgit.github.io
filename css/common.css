@@ -1,0 +1,36 @@
+body {
+  font-family: 'Exo 2', Verdana, sans-serif;
+}
+@media (min-width: 1200px) {
+  .grid .col-md-4:nth-child(3n+1) {
+    clear: left;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .grid .col-sm-6:nth-child(2n+1) {
+    clear: left;
+  }
+}
+td {
+  padding-right: 1em;
+}
+.control-key {
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 0.6em;
+  padding: 0.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background-color: #eee;
+  margin-left: 1em;
+}
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+}
+.logo-gradient {
+  background: linear-gradient(to right, #ff9999, #ffff99, #99ff99, #99ffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color:rgba(0,0,0,0) !important;
+  text-shadow: none !important;
+}
