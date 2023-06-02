@@ -1,1 +1,0 @@
-"http:"==window.location.protocol&&"sapbotgit.github.io"==window.location.host&&document.cookie&&document.cookie.indexOf("__use_https=1")>=0&&window.location.replace(window.location.href.replace(/^http:/,"https:"));
