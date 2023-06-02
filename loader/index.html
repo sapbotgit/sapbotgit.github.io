@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+<py-script>
+  from js import window
+  
+  keycount = 3
+  keylet = 'раза'
+  games = ["sapbotsadventure"]
+  keys = {"sapbotsadventure":"DSASDD-HDSJJD-HDJSJD"}
+  
+  print('Введите название игры в которую хотите поиграть')
+  while True:
+      game = input('>').lower().replace(" ", "")
+      if game in games:
+          break
+      else:
+          print('Игра не найдена, список игр: {}'.format(games))
+  print('Введите ключ к {}'.format(game))
+  for i in range(keycount):
+      key = input('>')
+      if key = keys['game']:
+          window.location.href = "https://sapbotgit.github.io/games/{}".format(game)
+      else:
+          print('Неверный ключ')
+  print('Вы ввели неверный ключ {} {}'.format(keycount, keylet))
