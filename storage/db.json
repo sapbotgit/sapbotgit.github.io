@@ -1,18 +1,1 @@
-{"accounts":{
-  "Sapbot":{
-     "coins":5,
-     "items":[],
-     "password":"18sapbot",
-     "codes":[]}
-  }
-"codes":{
-  "STARTING":{
-    "coins":16,
-    "items":[]
-  }
-  "ZFGXFREE":{
-    "coins":32,
-    "items":[]
-  }
- }
-}
+{"accounts": {"root": {"display": "Sapbot", "coins": 5, "password": "18sapbot", "items": [], "codes": []}}, "codes": {"STARTING": {"coins": 5, "items": []}}}
