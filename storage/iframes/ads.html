@@ -8,7 +8,7 @@
 <body>
     <py-script>
         import js, random
-        avaible = ["https://yandex.ru/poll/Hg7GqjjazmocnCDaogjRsy", "https://yandex.ru/poll/AdahFYufcm64E74KEwbFMn", "https://yandex.ru/poll/RxZnjMjnkKbz8cx7NoknGH", "https://sapbotgit.github.io/", "https://sapbot.github.io/", "https://bit.ly/m/paemofficiallib"]
+        avaible = ["https://yandex.ru/poll/Hg7GqjjazmocnCDaogjRsy", "https://yandex.ru/poll/AdahFYufcm64E74KEwbFMn", "https://yandex.ru/poll/RxZnjMjnkKbz8cx7NoknGH"]
         iframe = js.document.createElement("iframe")
         iframe.src = random.choice(avaible)
         iframe.style.width = "500px"
