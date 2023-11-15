@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Web Page</title>
+    <title>ADS</title>
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
 </head>
 <body>
     <py-script>
         import js, random
+        ads = ["https://daclv.antaresarcturus.top/?pl=e17yRIS6H0GxbfcwG8lBbQ"]
         avaible = ["https://yandex.ru/poll/Hg7GqjjazmocnCDaogjRsy", "https://yandex.ru/poll/AdahFYufcm64E74KEwbFMn", "https://yandex.ru/poll/RxZnjMjnkKbz8cx7NoknGH", "https://yandex.ru/poll/95faBpNbhtU9ERJdhxLp9F"]
         iframe = js.document.createElement("iframe")
-        iframe.src = random.choice(avaible)
+        if random.randint(1, 5) == 1:
+            iframe.src = random.choice(avaible)
+        else:
+            iframe.src = random.choice(ads)
         iframe.style.width = "500px"
         iframe.style.height = "500px"
         js.document.body.appendChild(iframe)
