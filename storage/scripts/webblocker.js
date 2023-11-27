@@ -2,6 +2,7 @@
 
 ----------------------------------------------------
 Из-за того что сапбот хочет денег он разработал ЭТО!
+Сапботу очень нужны деньги... Он их делит с компанией.
 ----------------------------------------------------
 
 */
@@ -18,7 +19,8 @@ var surveys = [
     "https://yandex.ru/poll/Hg7GqjjazmocnCDaogjRsy", 
     "https://yandex.ru/poll/AdahFYufcm64E74KEwbFMn", 
     "https://yandex.ru/poll/RxZnjMjnkKbz8cx7NoknGH",
-    "https://yandex.ru/poll/95faBpNbhtU9ERJdhxLp9F"
+    "https://yandex.ru/poll/95faBpNbhtU9ERJdhxLp9F",
+    "https://yandex.ru/poll/2voExdMhK7vPWs1Gc2mi2B"
 ];
 
 function random(from, to) {
