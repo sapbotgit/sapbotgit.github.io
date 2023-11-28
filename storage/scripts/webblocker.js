@@ -35,33 +35,31 @@ function getlink() {
     }
 }
 
+function createIframe() {
+    var iframe = document.createElement('iframe');
+    iframe.src = "aboutblank";
+    iframe.style.position = 'fixed';
+    iframe.style.bottom = '0';
+    iframe.style.right = '0';
+    iframe.style.width = String(window.width / 4) + "px";
+    iframe.style.height = String(window.innerHeight / 2) + "px";
+    document.body.appendChild(iframe);
+    return iframe;
+}
+
 function security() {
-    var ZZtitle = document.createElement("h2");
-    var ZZtext = document.createElement("p");
-    var ZZad = document.createElement("iframe");
-    document.title = "WebBlocker";
-    ZZtitle.textContent = "Секунду!";
-    ZZtext.textContent = "Данный сайт защищён WebLocker! Подождите 30 секунд (2 рекламы)! РЕКЛАМА:";
-    ZZad.src = getlink()
-    window.stop()
-    ZZad.height = 500
-    ZZad.width = ZZad.height
-    document.body.appendChild(ZZtitle);
-    document.body.appendChild(ZZtext);
-    document.body.appendChild(ZZad);
-    function removeit() {
-        window.location.href = window.location.href + "?passed";
+    var fram = createIframe();
+    function newad() {
+        fram.src = getlink();
+        fram.style.width = String(window.innerWidth / 5) + "px";
+        fram.style.height = String(window.innerHeight / 2) + "px";
+        setTimeout(newad, 10000);
     }
-    function changead() {
-        ZZad.src = getlink()
-        ZZtext.textContent = "Осталось всего 15 секунд (одна реклама)! РЕКЛАМА:"
-    }
-    setTimeout(removeit, 30000);
-    setTimeout(changead, 15000);
+    newad();
 }
 
 if (!window.location.href.includes("?passed")) {
     security()
 } else {
-    document.title = "WebUnlocked";
+    document.title = "WebBlocker PRO";
 }
