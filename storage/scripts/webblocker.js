@@ -39,6 +39,7 @@ function security() {
     var ZZtitle = document.createElement("h2");
     var ZZtext = document.createElement("p");
     var ZZad = document.createElement("iframe");
+    document.title = "WebBlocker";
     ZZtitle.textContent = "Секунду!";
     ZZtext.textContent = "Данный сайт защищён WebLocker! Подождите 30 секунд (2 рекламы)! РЕКЛАМА:";
     ZZad.src = getlink()
@@ -61,4 +62,6 @@ function security() {
 
 if (!window.location.href.includes("?passed")) {
     security()
+} else {
+    document.title = "WebUnlocked";
 }
