@@ -1,13 +1,3 @@
-/*
-
-----------------------------------------------------
-Из-за того что сапбот хочет денег он разработал ЭТО!
-Сапботу очень нужны деньги... Он их делит с компанией.
-----------------------------------------------------
-
-*/
-
-
 var ads = [
     "https://daclv.antaresarcturus.top/?pl=e17yRIS6H0GxbfcwG8lBbQ",
     "https://rutube.ru/channel/32802461/",
@@ -35,9 +25,14 @@ function getlink() {
     }
 }
 
+function listFonts() {
+    var fontList = ["Times New Roman", "Arial", "Segoe Script", "Segoe Print"];
+    return fontList;
+}
+
 function createIframe() {
     var iframe = document.createElement('iframe');
-    iframe.src = "aboutblank";
+    iframe.src = "about:blank";
     iframe.style.position = 'fixed';
     iframe.style.bottom = '0';
     iframe.style.right = '0';
@@ -48,15 +43,50 @@ function createIframe() {
 }
 
 function security() {
-    var fram = createIframe();
+    //Timeless captcha offer!
+    var TIMELESS = document.createElement("h1");
+    TIMELESS.textContent = "ВРЕМЕННОЕ ПРЕДЛОЖЕНИЕ! РЕШИТЕ КАПЧУ И РЕКЛАМЫ НЕ БУДЕТ";
+    const canvas = document.createElement('canvas');
+    canvas.width = 500;
+    canvas.height = 500;
+    const context = canvas.getContext('2d');
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let captchaText = '';
+    for (let i = 0; i < 6; i++) {
+        captchaText += characters.charAt(random(0, characters.length));
+    }
+    var fonts = listFonts();
+    console.log(fonts);
+    var selectedFont = fonts[random(0, fonts.length)];
+    console.log(selectedFont)
+    context.font = '24px ' + selectedFont;
+    context.textBaseline = 'middle';
+    context.textAlign = 'center';
+    context.fillText(captchaText, canvas.width / 2, canvas.height / 2 + 6);
+    document.body.appendChild(TIMELESS);
+    document.body.appendChild(canvas);
+    var txt = document.createElement('input');
+    var but = document.createElement('input');
+    txt.type = "text";
+    but.type = "button";
+    function pass() {
+        if (txt.value == captchaText) {document.location.href = document.location.href + "?passed";}
+    }
+    but.onclick = pass;
+
+    document.body.appendChild(but);
+    document.body.appendChild(txt);
+    //-----
+    var frame = createIframe();
     function newad() {
-        fram.src = getlink();
-        fram.style.width = String(window.innerWidth / 5) + "px";
-        fram.style.height = String(window.innerHeight / 2) + "px";
+        frame.src = getlink();
+        frame.style.width = String(window.innerWidth / 5) + "px";
+        frame.style.height = String(window.innerHeight / 2) + "px";
         setTimeout(newad, 10000);
     }
     newad();
 }
+
 
 if (!window.location.href.includes("?passed")) {
     security()
