@@ -2,7 +2,8 @@ var ads = [
     "https://daclv.antaresarcturus.top/?pl=e17yRIS6H0GxbfcwG8lBbQ",
     "https://rutube.ru/channel/32802461/",
     "https://nquw.adj.st/?adj_t=iij3c6b&adj_campaign=app_link&adj_adgroup=4212828&adj_fallback=https%3A%2F%2Fmarket.yandex.ru%2F%3Futm_source%3Dpartner_network%26utm_medium%3Dapp_link%26utm_campaign%3D4212828%26clid%3D4212828%26distr_type%3D7%26pp%3D943%26src_pof%3D4212828%26mclid%3D1003%26vid%3DWebBlocker&adj_label=pp%3A943%2Bsrc_pof%3A4212828%2Bclid%3A4212828%2Bmclid%3A1003%2Bdistr_type%3A7%2Bvid%3AWebBlocker%2Bvid%3AWebBlocker&adj_redirect_macos=https%3A%2F%2Fmarket.yandex.ru%2F%3Futm_source%3Dpartner_network%26utm_medium%3Dapp_link%26utm_campaign%3D4212828%26clid%3D4212828%26distr_type%3D7%26pp%3D943%26src_pof%3D4212828%26mclid%3D1003%26vid%3DWebBlocker&clid=4212828&distr_type=7&mclid=1003&pp=943&src_pof=4212828&vid=WebBlocker",
-    "https://rucaptcha.com/?from=20286265"
+    "https://rucaptcha.com/?from=20286265",
+    "https://hCaptcha.com/?r=f679f1b079f3"
 ];
 
 var surveys = [
