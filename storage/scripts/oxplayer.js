@@ -2,15 +2,23 @@ var videoPlayer = document.getElementById('video-player');
 var p = document.createElement("p");
 var playButton = document.createElement('button');
 var pauseButton = document.createElement('button');
-var timeDisplay = document.createElement('span'); // Создаем элемент для отображения времени
-var durationDisplay = document.createElement('span'); // Создаем элемент для отображения длительности
+var stopButton = document.createElement('button');
+var muteButton = document.createElement('button'); // Создаем кнопку для включения/выключения звука
+
+var timeDisplay = document.createElement('span');
+var durationDisplay = document.createElement('span');
+var watermark = document.createElement('div');
 
 p.textContent = '';
 playButton.textContent = 'Play';
 pauseButton.textContent = 'Pause';
+stopButton.textContent = 'Stop';
+muteButton.textContent = 'Mute'; // Устанавливаем текст кнопки для включения/выключения звука
 
 playButton.classList.add('play-button');
 pauseButton.classList.add('pause-button');
+stopButton.classList.add('stop-button');
+muteButton.classList.add('mute-button'); // Добавляем CSS класс для кнопки включения/выключения звука
 
 playButton.addEventListener('click', function() {
     videoPlayer.play();
@@ -20,11 +28,36 @@ pauseButton.addEventListener('click', function() {
     videoPlayer.pause();
 });
 
+stopButton.addEventListener('click', function() {
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+});
+
+muteButton.addEventListener('click', function() {
+    if (videoPlayer.muted) {
+        videoPlayer.muted = false;
+        muteButton.textContent = 'Mute';
+    } else {
+        videoPlayer.muted = true;
+        muteButton.textContent = 'Unmute';
+    }
+});
+
 document.body.appendChild(p);
 document.body.appendChild(playButton);
 document.body.appendChild(pauseButton);
-document.body.appendChild(timeDisplay); // Добавляем элемент для отображения времени в body
-document.body.appendChild(durationDisplay); // Добавляем элемент для отображения длительности в body
+document.body.appendChild(stopButton);
+document.body.appendChild(muteButton); // Добавляем кнопку включения/выключения звука в body
+document.body.appendChild(timeDisplay);
+document.body.appendChild(durationDisplay);
+
+// Остальной код...
+
+
+
+// Rest of the code...
+
+
 var watermark = document.createElement('div'); // Создаем элемент для водяного знака
 
 // Стилизация водяного знака
