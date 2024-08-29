@@ -8,7 +8,7 @@ var temp_height = rjs_canvas.height
 
 console.log("Made with render.js, the open source graphical library for javascript")
 
-if (document.currentScript.src != "https://raw.githubusercontent.com/sapbotgit/render-js/main/render.js") {
+if (document.currentScript.src != "https://sapbotgit.github.io/render.js") {
     console.log("WARNING: THIS PROJECT USING OUTDATED OR UNSUPPORTED VERSION OF RENDER.JS, GET NORMAL ONE IN https://github.com/sapbotgit/render-js")
 }
 
