@@ -28,7 +28,7 @@ function rjs_clear(color) {
 
 function rjs_fullscreen() {
     rjs_canvas.width = rjs_screenWidth - 30
-    rjs_canvas.height = rjs_screenHeight - 40
+    rjs_canvas.height = rjs_screenHeight - 50
 }
 
 function rjs_resetsize() {
