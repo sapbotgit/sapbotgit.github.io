@@ -2,7 +2,4 @@
 
 OpenArchive is a github-friendly mirror of Romarchive containing user contributed and public domain projects.
 
-## Platforms
-- [Dennis Allison Tiny Basic](/Dennis Allison Tiny Basic/)
-- [eChat eMaps](/eChat eMaps/)
-- [Nintendo Entertainment System](/Nintendo Entertainment System/)
+If you here for surfing a games open github [repository](https://github.com/sapbotgit/sapbotgit.github.io/). Also if you want to download romarchive.zapto.org's file but original host is down, this is fully compatible with it.
