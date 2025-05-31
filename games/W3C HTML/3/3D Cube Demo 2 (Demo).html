@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Cube Renderer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+        }
+        canvas {
+            border: 1px solid #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600" style="height: 100%; width: auto;"></canvas>
+    <script>
+        var engine = {}
+
+function xyztoxy(xyz) {
+    return [xyz[0] + (xyz[2] / 2), xyz[1] + (xyz[2] / 2)]
+}
+
+function averageZ(face) {
+    // Calculate the average Z-coordinate of the vertices in the face
+    let totalZ = 0;
+    for (vertex of face) {
+        totalZ += vertex[2]; // Assuming vertex is in the form [x, y, z]
+    }
+    return totalZ / face.length;
+}
+
+engine.render = function(faces) {
+    // Sort faces by the average Z-coordinate
+    faces.sort((a, b) => averageZ(a.polygon) - averageZ(b.polygon));
+
+    var todraw = []
+    for (facez of faces) {
+        var face = facez["polygon"]
+        var polygon = []
+        for (vertex of face) {
+            polygon = polygon.concat([xyztoxy(vertex)])
+        }
+        todraw = todraw.concat([{
+            "polygon": polygon,
+            "color": facez["color"]
+        }])
+    }
+    return todraw
+}
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const faces = [
+            { "polygon": [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]], "color": "#ff0000" },
+            { "polygon": [[0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]], "color": "#00ff00" },
+            { "polygon": [[0, 0, 0], [0, 0, 1], [0, 1, 1], [0, 1, 0]], "color": "#0000ff" },
+            { "polygon": [[1, 0, 0], [1, 0, 1], [1, 1, 1], [1, 1, 0]], "color": "#ffff00" },
+            { "polygon": [[0, 1, 0], [1, 1, 0], [1, 1, 1], [0, 1, 1]], "color": "#ff00ff" },
+            { "polygon": [[0, 0, 0], [1, 0, 0], [1, 0, 1], [0, 0, 1]], "color": "#00ffff" }
+        ];
+
+        const angles = { x: 0, y: 0, z: 0 };
+
+        function rotateX(point, angle) {
+            const rad = angle * Math.PI / 180;
+            const cos = Math.cos(rad);
+            const sin = Math.sin(rad);
+            return [
+                point[0],
+                point[1] * cos - point[2] * sin,
+                point[1] * sin + point[2] * cos
+            ];
+        }
+
+        function rotateY(point, angle) {
+            const rad = angle * Math.PI / 180;
+            const cos = Math.cos(rad);
+            const sin = Math.sin(rad);
+            return [
+                point[0] * cos + point[2] * sin,
+                point[1],
+                -point[0] * sin + point[2] * cos
+            ];
+        }
+
+        function rotateZ(point, angle) {
+            const rad = angle * Math.PI / 180;
+            const cos = Math.cos(rad);
+            const sin = Math.sin(rad);
+            return [
+                point[0] * cos - point[1] * sin,
+                point[0] * sin + point[1] * cos,
+                point[2]
+            ];
+        }
+
+        function rotatePoint(point, angles) {
+            let rotated = rotateX(point, angles.x);
+            rotated = rotateY(rotated, angles.y);
+            rotated = rotateZ(rotated, angles.z);
+            return rotated;
+        }
+
+        function updateRotation() {
+            angles.x += 1;
+            angles.y += 2;
+            angles.z += 3;
+
+            // Transform faces based on the current rotation angles
+            const transformedFaces = faces.map(face => {
+                const transformedPolygon = face.polygon.map(vertex => rotatePoint(vertex, angles));
+                return { ...face, polygon: transformedPolygon };
+            });
+
+                        // Call engine.render with the transformed faces
+                        const polygonsToDraw = engine.render(transformedFaces);
+
+// Clear the canvas
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// Draw the polygons returned by engine.render
+for (const shape of polygonsToDraw) {
+    ctx.fillStyle = shape.color;
+    ctx.beginPath();
+    ctx.moveTo(shape.polygon[0][0] * 100 + 400, shape.polygon[0][1] * 100 + 300); // Scale and translate
+    for (let i = 1; i < shape.polygon.length; i++) {
+        ctx.lineTo(shape.polygon[i][0] * 100 + 400, shape.polygon[i][1] * 100 + 300);
+    }
+    ctx.closePath();
+    ctx.fill();
+}
+}
+
+// Initial draw
+updateRotation(); // Call once to draw the initial frame
+setInterval(updateRotation, 50); // Update rotation every 50 milliseconds
+</script>
+</body>
+</html>
