@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin: 5px 0;
+            padding: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+        }
+        #currentAccount {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Account Management</h1>
+
+    <h2>Sign Up</h2>
+    <!--<form id="signupForm">
+        <input type="text" id="signupUsername" placeholder="Enter username" required>
+        <button type="submit">Sign Up</button>
+    </form>!-->
+    <p>I am sorry, I broken the sign up, please contact me in sapbot@duck.com with title #romarchive</p>
+
+    <h2>Sign In</h2>
+    <form id="signinForm">
+        <input type="text" id="signinUsername" placeholder="Enter username" required>
+        <input type="password" id="signinSecret" placeholder="Enter secret key" required>
+        <button type="submit">Sign In</button>
+    </form>
+
+    <div id="message"></div>
+    <div id="currentAccount"></div>
+    <button id="logoutButton" style="display:none;">Log Out</button>
+
+    <script>
+        function setCookie(name, value, days) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
+        }
+
+        function getCookie(name) {
+            return document.cookie.split('; ').reduce((r, v) => {
+                const parts = v.split('=');
+                return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+            }, '');
+        }
+
+        /*document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('signupUsername').value;
+
+            fetch(`/account/signup?username=${username}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('message').innerHTML = data;
+                    checkLoggedIn();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });*/
+
+        document.getElementById('signinForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('signinUsername').value;
+            const secretKey = document.getElementById('signinSecret').value; // Get the secret key
+
+            fetch(`/account/signin?username=${username}&secret=${secretKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        setCookie("username", username, 7); // Store username in cookies for 7 days
+                        document.getElementById('message').innerHTML = `Signed in as ${username}`;
+                        updateAccountInfo(); // Update account info
+                    } else {
+                        document.getElementById('message').innerHTML = data.message;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            setCookie("username", '', -1); // Delete the username cookie
+            document.getElementById('currentAccount').innerHTML = '';
+            document.getElementById('logoutButton').style.display = 'none';
+            document.getElementById('message').innerHTML = 'Logged out successfully.';
+        });
+
+        function checkLoggedIn() {
+            const username = getCookie("username");
+            if (username) {
+                document.getElementById('currentAccount').innerHTML = `Currently logged in as: ${username}`;
+                document.getElementById('logoutButton').style.display = 'block';
+            } else {
+                document.getElementById('currentAccount').innerHTML = '';
+                document.getElementById('logoutButton').style.display = 'none';
+            }
+        }
+
+        // Check login status on page load
+        checkLoggedIn();
+    </script>
+</body>
+</html>

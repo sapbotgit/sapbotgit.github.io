@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <div id="google_translate_element"></div>
+<script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', // Original language of your page
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Automatically translate if the user's language is Russian
+        document.addEventListener('DOMContentLoaded', () => {
+            if (navigator.languages[0].startsWith('ru')) {
+                const script = document.createElement('script');
+                script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+                document.body.appendChild(script);
+            }
+        });
+    </script>
+    </head>
+    <body>
+        <title>Filename documentation for romarchive.</title>
+        <h1>Filename documentation for romarchive.</h1>
+
+        <p>I needed something simpler then existing standarts, so I developed my own.</p>
+
+        <h2>Typical name</h2>
+
+        <p>Name of file is just</p>
+        <code>Your game name (Tags).extension</code>
+        <p>It's easy! Is'nt it?</p>
+
+        <h2>Tags</h2>
+        <table>
+            <tr>
+                <th>TAG</th>
+                <th>DESCRIPTION</th>
+            </tr>
+            <tr>
+                <td class="notranslate">PAL</td>
+                <td>Used for games that are forced to use PAL instead of NTSC.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">NTSC</td>
+                <td>Used for games that are forced to use NTSC instead of PAL.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Country</td>
+                <td>Version of game made for some country. Can be 'USA', 'Japan', 'Europe', 'Russia', 'World' and etc.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Unlicensed</td>
+                <td>Made without licensing of console owners. Common for Russian famiclones like Dendy.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Cracked</td>
+                <td>Games with cut off security. Mainly PC, almost never for consoles.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Patched</td>
+                <td>Games that are not in original form (hacked/patched/modded). Common with "Cracked" games.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">??</td>
+                <td>When game is not in English language. Follows ISO-639-1 standart.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Demo</td>
+                <td>Not a real game/app. Just a demo.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Homebrew</td>
+                <td>Made not in real studio, just in home, mostly public domain.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Public</td>
+                <td>Public domain games. You can do to them whatever you want.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Prototype</td>
+                <td>Unreleased version of the game. There are unreleased games too.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Mature</td>
+                <td>A game that are not suitable for children. Each game has specific reasons to be there.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Setup</td>
+                <td>Not installed game, not ready-to-play game. You need to install it by hand (sometimes even using cd drive emulator).</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Favorite</td>
+                <td>Game has been played by me, and I liked it.</td>
+            </tr>
+            <tr>
+                <td class="notranslate">VR</td>
+                <td>App requires Virtual Reality headset. Not set for VR-Only platforms (like "Bjorn LOVR" or "Meta QuestOS" or "PICO OS").</td>
+            </tr>
+            <tr>
+                <td class="notranslate">Kiosk</td>
+                <td>App used in kiosk hardware and never been introduced to public. Doesn't apply to kiosk-only hardware like "Arcade"</td>
+            </tr>
+        </table>
+    </body>
+</html>
