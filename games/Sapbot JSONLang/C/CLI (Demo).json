@@ -1,0 +1,1 @@
+{"variables":{"hu":"Hello, ","qu":"!", "inp":"", "out":""},"functions":{"main":[{"func":"cli","var":"inp","arg":0},{"func":"concat","vars":["hu","inp","qu"],"out":"out"},{"func":"print","data":"out"}]}}
