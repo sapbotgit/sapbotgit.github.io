@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sapbot // TERMINAL_v1.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amber: #ffb000;
+            --amber-dim: #b37900;
+            --bg-color: #120a01;
+            --scanline: rgba(18, 16, 16, 0.5);
+        }
+
+        body {
+            background-color: #050505;
+            color: var(--amber);
+            font-family: 'VT323', monospace;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* CRT Container */
+        .crt-container {
+            width: 95vw;
+            height: 95vh;
+            background-color: var(--bg-color);
+            border: 2px solid #333;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 176, 0, 0.2), inset 0 0 80px rgba(0,0,0,0.9);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Screen Texture & Effects */
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .flicker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 176, 0, 0.02);
+            opacity: 0;
+            z-index: 11;
+            pointer-events: none;
+            animation: flickerAnimation 0.15s infinite;
+        }
+
+        .glow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,176,0,0.05) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 9;
+            pointer-events: none;
+        }
+
+        /* Typography & UI Elements */
+        .text-glow {
+            text-shadow: 0 0 5px var(--amber), 0 0 10px var(--amber-dim);
+        }
+        
+        .text-dim {
+            color: var(--amber-dim);
+        }
+
+        .border-retro {
+            border: 1px solid var(--amber-dim);
+            box-shadow: 0 0 5px var(--amber-dim);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a0f00; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--amber-dim); 
+            border: 1px solid #000;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--amber); 
+        }
+
+        /* Animations */
+        @keyframes flickerAnimation {
+            0% { opacity: 0.01; }
+            5% { opacity: 0.05; }
+            10% { opacity: 0.01; }
+            15% { opacity: 0.06; }
+            20% { opacity: 0.01; }
+            100% { opacity: 0.01; }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        .wallet-row {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .wallet-row:hover {
+            background-color: rgba(255, 176, 0, 0.1);
+            padding-left: 10px;
+        }
+
+        /* Boot Sequence Text */
+        .boot-text {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* Copy Feedback */
+        .copied-feedback {
+            animation: flash 0.5s ease-in-out;
+        }
+
+        @keyframes flash {
+            0% { background-color: rgba(255, 176, 0, 0.3); }
+            100% { background-color: transparent; }
+        }
+
+        /* Portfolio Link */
+        .portfolio-link {
+            text-decoration: none;
+            border-bottom: 1px solid var(--amber-dim);
+            transition: all 0.2s;
+        }
+        .portfolio-link:hover {
+            border-bottom: 1px solid var(--amber);
+            text-shadow: 0 0 8px var(--amber);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="crt-container" id="terminal">
+        <!-- Visual Effects -->
+        <div class="scanlines"></div>
+        <div class="flicker"></div>
+        <div class="glow-overlay"></div>
+
+        <!-- Header -->
+        <header class="p-4 border-b border-[#b37900] flex justify-between items-end z-20 bg-[#120a01]">
+            <div>
+                <h1 class="text-4xl font-bold text-glow tracking-widest">sapbot@wallet:~$</h1>
+                <p class="text-sm text-dim mt-1">> SECURE VAULT // ENCRYPTED CONNECTION</p>
+            </div>
+            <div class="text-right text-dim text-lg">
+                <div id="clock">00:00:00</div>
+                <div class="text-sm">MEM: 64KB OK</div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 overflow-y-auto z-20 relative" id="main-content">
+            
+            <!-- Boot Sequence (Hidden after load) -->
+            <div id="boot-sequence" class="mb-8 text-lg leading-relaxed">
+                <!-- JS will populate this -->
+            </div>
+
+            <!-- Wallet List -->
+            <div id="wallet-list" class="hidden">
+                <div class="flex justify-between items-center mb-4 border-b border-dashed border-[#b37900] pb-2">
+                    <span class="text-xl">INDEXED_ASSETS</span>
+                    <span class="text-dim animate-pulse">● LIVE</span>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-2" id="wallet-container">
+                    <!-- Wallets injected here -->
+                </div>
+
+                <!-- Portfolio Link -->
+                <div class="mt-8 pt-4 border-t border-dashed border-[#b37900] text-center">
+                    <a href="/" class="portfolio-link text-xl text-dim hover:text-[#ffb000]">
+                        [← RETURN TO MAIN PORTFOLIO]
+                    </a>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer / Status Bar -->
+        <footer class="p-2 border-t border-[#b37900] bg-[#1a0f00] z-20 flex justify-between text-sm text-dim">
+            <div id="status-bar">STATUS: WAITING FOR INPUT...</div>
+            <div>v1.0.4</div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Data
+        const wallets = {
+            "TRON": "TQbpn2E2LKnULqxSkxhq9thiTWj2WmGt5S",
+            "ETH": "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8",
+            "AKT": "akash1xcgug6hu9a6r244mjp8q23x9e6p5x2az8py8xl",
+            "OSMO": "osmo1xcgug6hu9a6r244mjp8q23x9e6p5x2azzp6sfh",
+            "BABY": "bbn1xcgug6hu9a6r244mjp8q23x9e6p5x2azayc3qu",
+            "BCH": "qztfhz6lcwgmdeyxv8gpsmz0hxx5c260rvv4sza3h6",
+            "BTC": "1GSujd74Q5DrLKiMEtcnjwEpr6ZvPfWZky",
+            "DOGE": "DS3oyWT75iSAxE2guxEkrgTrdDFQ34ETbz",
+            "TST": "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8"
+        };
+
+        // DOM Elements
+        const bootSequence = document.getElementById('boot-sequence');
+        const walletList = document.getElementById('wallet-list');
+        const walletContainer = document.getElementById('wallet-container');
+        const statusBar = document.getElementById('status-bar');
+
+        // Boot Sequence Logic
+        const bootLines = [
+            "INITIALIZING KERNEL...",
+            "AUTHENTICATING USER: sapbot...",
+            "LOADING MODULES: [CRYPTO_SHA256] [NETWORK_TCP/IP]...",
+            "MOUNTING VIRTUAL DRIVE /VAULT...",
+            "DECRYPTING WALLET CONTAINERS...",
+            "VERIFYING CHECKSUMS...",
+            "ACCESS GRANTED."
+        ];
+
+        let lineIndex = 0;
+
+        function typeBootSequence() {
+            if (lineIndex < bootLines.length) {
+                const div = document.createElement('div');
+                div.className = "boot-text";
+                div.textContent = "> " + bootLines[lineIndex];
+                bootSequence.appendChild(div);
+                
+                lineIndex++;
+                setTimeout(typeBootSequence, Math.random() * 300 + 100);
+            } else {
+                setTimeout(() => {
+                    bootSequence.style.display = 'none';
+                    walletList.classList.remove('hidden');
+                    renderWallets();
+                    statusBar.textContent = "STATUS: DISPLAYING 9 ASSETS";
+                }, 800);
+            }
+        }
+
+        // Render Wallets with Copy Functionality
+        function renderWallets() {
+            Object.entries(wallets).forEach(([coin, address], index) => {
+                const row = document.createElement('div');
+                row.className = "wallet-row border-b border-[#b37900] border-opacity-30 p-3 flex justify-between items-center group";
+                row.id = `row-${coin}`;
+                
+                // Shorten address for mobile display
+                const shortAddr = address.substring(0, 6) + "..." + address.substring(address.length - 4);
+                
+                row.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <span class="text-dim text-xl w-8">[${index + 1}]</span>
+                        <span class="text-2xl font-bold text-glow group-hover:text-white transition-colors">${coin}</span>
+                    </div>
+                    <div class="flex items-center gap-4 cursor-pointer" onclick="copyToClipboard('${coin}', '${address}')">
+                        <span class="text-lg text-dim font-mono tracking-wider hidden md:block" id="addr-${coin}">${address}</span>
+                        <span class="text-lg text-dim font-mono md:hidden" id="addr-${coin}-mobile">${shortAddr}</span>
+                        <span class="text-dim opacity-0 group-hover:opacity-100 transition-opacity text-sm border border-[#b37900] px-2 py-1">[COPY]</span>
+                    </div>
+                `;
+                
+                walletContainer.appendChild(row);
+            });
+        }
+
+        // Copy Functionality
+        function copyToClipboard(coin, address) {
+            navigator.clipboard.writeText(address).then(() => {
+                const row = document.getElementById(`row-${coin}`);
+                const status = document.getElementById('status-bar');
+                
+                // Visual feedback
+                row.classList.add('copied-feedback');
+                status.textContent = `STATUS: ${coin} ADDRESS COPIED TO CLIPBOARD`;
+                status.style.color = '#ffb000';
+                
+                setTimeout(() => {
+                    row.classList.remove('copied-feedback');
+                    status.textContent = "STATUS: WAITING FOR INPUT...";
+                    status.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                statusBar.textContent = "STATUS: COPY FAILED";
+            });
+        }
+
+        // Clock
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+        }, 1000);
+
+        // Start
+        window.addEventListener('DOMContentLoaded', () => {
+            typeBootSequence();
+        });
+
+    </script>
+</body>
+</html>
