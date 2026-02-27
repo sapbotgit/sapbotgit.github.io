@@ -3,116 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sapbot@wallet ~</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+    <title>sapbot@wallet</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="crypto.css">
 </head>
 <body>
-    <div class="crt-container">
-        <div class="crt-overlay">
-            <div class="scanlines"></div>
-            <div class="vignette"></div>
-            <div class="noise"></div>
-        </div>
-        
-        <div id="boot-screen">
-            <div class="boot-sequence" id="boot-text"></div>
-        </div>
-
-        <div id="terminal" class="terminal hidden">
-            <header class="terminal-header">
-                <div class="terminal-tabs">
-                    <div class="tab active">
-                        <span class="tab-icon">◆</span>
-                        <span>wallet.sh</span>
-                    </div>
-                    <div class="tab">
-                        <span class="tab-icon">○</span>
-                        <span>vault.log</span>
-                    </div>
+    <div class="desktop">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <span>🔐</span>
+                    <span>wallet</span>
                 </div>
-                <div class="terminal-controls">
-                    <span class="control close"></span>
-                    <span class="control minimize"></span>
-                    <span class="control maximize"></span>
-                </div>
-            </header>
-            
-            <div class="terminal-body">
-                <div class="status-bar">
-                    <div class="status-left">
-                        <span class="status-dot online"></span>
-                        <span>Connected</span>
-                        <span class="separator">│</span>
-                        <span id="current-time">--:--:--</span>
-                    </div>
-                    <div class="status-right">
-                        <span>sapbot@vault</span>
-                        <span class="separator">│</span>
-                        <span>pts/0</span>
-                    </div>
-                </div>
-                
-                <div class="terminal-content">
-                    <div class="hero-section">
-                        <div class="hero-line">
-                            <span class="prompt">$</span>
-                            <span class="command">cd ~/wallet</span>
-                        </div>
-                        <div class="output">
-                            <h1 class="username">WALLET</h1>
-                            <p class="tagline">Secure Crypto Vault • Encrypted Storage</p>
-                        </div>
-                        
-                        <div class="hero-line">
-                            <span class="prompt">$</span>
-                            <span class="command">./verify_vault.sh</span>
-                        </div>
-                        <div class="output">
-                            <div class="status-badge">ENCRYPTED</div>
-                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
-                                Click address to copy • All assets verified
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="divider">
-                        <span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-                    </div>
-                    
-                    <div class="section">
-                        <div class="section-header">
-                            <span class="prompt">$</span>
-                            <span class="command">ls -la ~/assets/</span>
-                        </div>
-                        
-                        <div class="filters">
-                            <div class="record-count">
-                                <span class="count-label">ASSETS:</span>
-                                <span id="asset-count">0</span>
-                            </div>
-                        </div>
-                        
-                        <div class="wallet-grid" id="wallet-list">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="terminal-footer">
-                    <div class="footer-left">
-                        <span class="prompt">$</span>
-                        <span id="footer-status">READY</span>
-                        <span class="cursor"></span>
-                    </div>
-                    <div class="footer-links">
-                        <a href="/">[portfolio]</a>
-                        <a href="/code-doodles.html">[code_doodles]</a>
-                    </div>
+                <div class="title-bar-controls">
+                    <div class="title-bar-btn">_</div>
+                    <div class="title-bar-btn">□</div>
+                    <div class="title-bar-btn">×</div>
                 </div>
             </div>
+            <div class="window-body">
+                <div class="about-section">
+                    <h1>SECURE CRYPTO VAULT</h1>
+                    <p>Encrypted Storage • All assets verified</p>
+                    <div class="encrypted-badge">ENCRYPTED</div>
+                </div>
+
+                <div class="section-title">
+                    <span>💰</span>
+                    <span>Assets</span>
+                </div>
+
+                <div class="inset-panel">
+                    <div class="wallet-grid" id="wallet-list">
+                    </div>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-bar-section" id="status-count">9 assets</div>
+                    <div class="status-bar-section" id="status-footer">READY</div>
+                    <div class="status-bar-section" id="status-time">--:--:--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="/">[portfolio]</a>
+            <a href="/code-doodles.html">[code_doodles]</a>
         </div>
     </div>
 
@@ -129,81 +64,14 @@
             { id: 9, coin: "TST", network: "Test Token", address: "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8" }
         ];
 
-        const bootSequence = [
-            { text: "BIOS DATE 02/27/26 08:14:33 VER 3.0.0", delay: 80 },
-            { text: "CPU: ARMv8-compatible, SPEED: 4200 MHz", delay: 60 },
-            { text: "MEMORY: 16384 MB SYSTEM... OK", delay: 50 },
-            { text: "", delay: 100 },
-            { text: "INITIALIZING SECURE VAULT...", delay: 30 },
-            { text: "  > USER:     sapbot", delay: 20 },
-            { text: "  > MODE:     ENCRYPTED", delay: 20 },
-            { text: "  > PROTOCOL: AES-256-GCM", delay: 20 },
-            { text: "  [OK]", delay: 150 },
-            { text: "", delay: 80 },
-            { text: "LOADING CRYPTO ASSETS...", delay: 40 },
-            { text: "  Scanning wallet containers...", delay: 30 },
-            { text: "  Found 9 assets", delay: 25 },
-            { text: "  [COMPLETE]", delay: 100 },
-            { text: "", delay: 60 },
-            { text: "VERIFYING CHECKSUMS...", delay: 40 },
-            { text: "  All checksums valid.", delay: 60 },
-            { text: "", delay: 80 },
-            { text: "═══════════════════════════════════════════════════", delay: 30 },
-            { text: "  SECURE VAULT ACCESSED", delay: 50 },
-            { text: "  Type 'help' for available commands", delay: 40 },
-            { text: "═══════════════════════════════════════════════════", delay: 30 },
-            { text: "", delay: 200 },
-            { text: "$ cd ~/wallet && ./unlock.sh", delay: 100 },
-            { text: "", delay: 500 }
-        ];
-
-        async function runBootSequence() {
-            const bootScreen = document.getElementById('boot-screen');
-            const bootText = document.getElementById('boot-text');
-            const terminal = document.getElementById('terminal');
-            
-            for (const line of bootSequence) {
-                const div = document.createElement('div');
-                div.className = 'boot-line';
-                div.textContent = line.text;
-                bootText.appendChild(div);
-                await new Promise(r => setTimeout(r, line.delay));
-                bootScreen.scrollTop = bootScreen.scrollHeight;
-            }
-            
-            await new Promise(r => setTimeout(r, 400));
-            
-            bootScreen.style.opacity = '0';
-            bootScreen.style.transform = 'scale(1.02)';
-            
-            setTimeout(() => {
-                bootScreen.classList.add('hidden');
-                terminal.classList.remove('hidden');
-                initApp();
-            }, 600);
-        }
-
-        function initApp() {
-            updateTime();
-            setInterval(updateTime, 1000);
-            renderWallet();
-        }
-
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('current-time').textContent = 
-                now.toLocaleTimeString('en-US', { hour12: false });
-        }
-
         function renderWallet() {
             const container = document.getElementById('wallet-list');
-            document.getElementById('asset-count').textContent = walletData.length;
+            document.getElementById('status-count').textContent = `${walletData.length} assets`;
             container.innerHTML = '';
             
-            walletData.forEach((item, i) => {
+            walletData.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'wallet-card';
-                card.style.animationDelay = `${i * 0.05}s`;
                 
                 card.innerHTML = `
                     <div class="wallet-header">
@@ -211,12 +79,12 @@
                             <div class="wallet-coin">${item.coin}</div>
                             <div class="wallet-network">${item.network}</div>
                         </div>
-                        <div class="status-badge">ACTIVE</div>
+                        <div class="wallet-status">ACTIVE</div>
                     </div>
                     <div class="wallet-address">${item.address}</div>
                     <div class="wallet-actions">
-                        <button class="btn-copy" onclick="copyAddress('${item.coin}', '${item.address}', this)">
-                            [COPY ADDRESS]
+                        <button class="win95-btn" onclick="copyAddress('${item.coin}', '${item.address}', this)">
+                            Copy Address
                         </button>
                     </div>
                 `;
@@ -226,27 +94,32 @@
 
         function copyAddress(coin, address, btn) {
             navigator.clipboard.writeText(address).then(() => {
-                const statusEl = document.getElementById('footer-status');
+                const statusEl = document.getElementById('status-footer');
                 statusEl.textContent = `${coin}_COPIED`;
-                statusEl.style.color = 'var(--green)';
                 
                 btn.classList.add('copied');
-                btn.textContent = '✓ COPIED';
+                btn.textContent = '✓ Copied';
                 
                 setTimeout(() => {
                     statusEl.textContent = 'READY';
-                    statusEl.style.color = '';
                     btn.classList.remove('copied');
-                    btn.textContent = '[COPY ADDRESS]';
+                    btn.textContent = 'Copy Address';
                 }, 2000);
             }).catch(err => {
-                const statusEl = document.getElementById('footer-status');
+                const statusEl = document.getElementById('status-footer');
                 statusEl.textContent = 'COPY_FAILED';
-                statusEl.style.color = 'var(--red)';
             });
         }
 
-        document.addEventListener('DOMContentLoaded', runBootSequence);
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('status-time').textContent = 
+                now.toLocaleTimeString('en-US', { hour12: false });
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+        renderWallet();
     </script>
 </body>
 </html>

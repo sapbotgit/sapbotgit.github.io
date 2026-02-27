@@ -3,204 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sapbot@code-doodles ~</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+    <title>sapbot@code-doodles</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="code-doodles.css">
 </head>
 <body>
-    <div class="crt-container">
-        <div class="crt-overlay">
-            <div class="scanlines"></div>
-            <div class="vignette"></div>
-            <div class="noise"></div>
-        </div>
-        
-        <div id="boot-screen">
-            <div class="boot-sequence" id="boot-text"></div>
-        </div>
-
-        <div id="terminal" class="terminal hidden">
-            <header class="terminal-header">
-                <div class="terminal-tabs">
-                    <div class="tab active">
-                        <span class="tab-icon">◇</span>
-                        <span>code_doodles.sh</span>
-                    </div>
-                    <div class="tab">
-                        <span class="tab-icon">○</span>
-                        <span>experiments.log</span>
-                    </div>
+    <div class="desktop">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <span>📁</span>
+                    <span>code_doodles</span>
                 </div>
-                <div class="terminal-controls">
-                    <span class="control close"></span>
-                    <span class="control minimize"></span>
-                    <span class="control maximize"></span>
-                </div>
-            </header>
-            
-            <div class="terminal-body">
-                <div class="status-bar">
-                    <div class="status-left">
-                        <span class="status-dot online"></span>
-                        <span>Connected</span>
-                        <span class="separator">│</span>
-                        <span id="current-time">--:--:--</span>
-                    </div>
-                    <div class="status-right">
-                        <span>sapbot@github</span>
-                        <span class="separator">│</span>
-                        <span>pts/0</span>
-                    </div>
-                </div>
-                
-                <div class="terminal-content">
-                    <div class="hero-section">
-                        <div class="hero-line">
-                            <span class="prompt">$</span>
-                            <span class="command">cd ~/code-doodles</span>
-                        </div>
-                        <div class="output">
-                            <h1 class="username">CODE-DOODLES</h1>
-                            <p class="tagline">Experimental prototypes, AI-assisted sketches & learning projects</p>
-                        </div>
-                        
-                        <div class="hero-line">
-                            <span class="prompt">$</span>
-                            <span class="command">cat README.md</span>
-                        </div>
-                        <div class="output description-box">
-                            <p>Rough drafts never meant to be finished - quick experiments to test ideas, learn new tech, or just play around.</p>
-                            <p class="warning-text">⚠ ARCHIVE MIRRORS: Download code doodles from the following sources</p>
-                        </div>
-                    </div>
-                    
-                    <div class="divider">
-                        <span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-                    </div>
-                    
-                    <div class="section">
-                        <div class="section-header">
-                            <span class="prompt">$</span>
-                            <span class="command">ls -la ~/archives/</span>
-                        </div>
-                        
-                        <div class="archive-grid">
-                            <a href="https://cows.info.gf/search?q=expirements" target="_blank" class="archive-card">
-                                <div class="card-header">
-                                    <span class="archive-icon">◆</span>
-                                    <h3>ROMARCHIVE</h3>
-                                </div>
-                                <p>Primary archive mirror hosted on cows.info.gf</p>
-                                <div class="card-url">cows.info.gf/search?q=expirements</div>
-                                <div class="card-status online">● ONLINE</div>
-                            </a>
-                            
-                            <a href="https://pastebin.com/u/sapbot" target="_blank" class="archive-card">
-                                <div class="card-header">
-                                    <span class="archive-icon">◇</span>
-                                    <h3>PASTEBIN</h3>
-                                </div>
-                                <p>Most popular online bin</p>
-                                <div class="card-url">pastebin.com/u/sapbot</div>
-                                <div class="card-status online">● ONLINE</div>
-                            </a>
-                            
-                            <a href="https://github.com/sapbotgit/code-doodles" target="_blank" class="archive-card">
-                                <div class="card-header">
-                                    <span class="archive-icon">◈</span>
-                                    <h3>GITHUB</h3>
-                                </div>
-                                <p>Open-source software portal</p>
-                                <div class="card-url">github.com/sapbotgit/code-doodles</div>
-                                <div class="card-status online">● ONLINE</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="terminal-footer">
-                    <div class="footer-left">
-                        <span class="prompt">$</span>
-                        <span class="cursor"></span>
-                    </div>
-                    <div class="footer-links">
-                        <a href="/">[portfolio]</a>
-                        <a href="/crypto.html">[wallet]</a>
-                    </div>
+                <div class="title-bar-controls">
+                    <div class="title-bar-btn">_</div>
+                    <div class="title-bar-btn">□</div>
+                    <div class="title-bar-btn">×</div>
                 </div>
             </div>
+            <div class="window-body">
+                <div class="about-section">
+                    <h1>CODE-DOODLES</h1>
+                    <p>Experimental prototypes, AI-assisted sketches & learning projects</p>
+                    <p style="margin-top: 8px;">Rough drafts never meant to be finished - quick experiments to test ideas, learn new tech, or just play around.</p>
+                    <p class="warning">⚠ ARCHIVE MIRRORS: Download code doodles from the following sources</p>
+                </div>
+
+                <div class="section-title">
+                    <span>📂</span>
+                    <span>Archives</span>
+                </div>
+
+                <div class="archive-grid">
+                    <a href="https://cows.info.gf/search?q=expirements" target="_blank" class="archive-card">
+                        <div class="card-header">
+                            <span>📁</span>
+                            <h3>ROMARCHIVE</h3>
+                        </div>
+                        <p>Primary archive mirror hosted on cows.info.gf</p>
+                        <div class="card-url">cows.info.gf/search?q=expirements</div>
+                        <div class="card-status">ONLINE</div>
+                    </a>
+                    
+                    <a href="https://pastebin.com/u/sapbot" target="_blank" class="archive-card">
+                        <div class="card-header">
+                            <span>📋</span>
+                            <h3>PASTEBIN</h3>
+                        </div>
+                        <p>Most popular online bin</p>
+                        <div class="card-url">pastebin.com/u/sapbot</div>
+                        <div class="card-status">ONLINE</div>
+                    </a>
+                    
+                    <a href="https://github.com/sapbotgit/code-doodles" target="_blank" class="archive-card">
+                        <div class="card-header">
+                            <span>🐙</span>
+                            <h3>GITHUB</h3>
+                        </div>
+                        <p>Open-source software portal</p>
+                        <div class="card-url">github.com/sapbotgit/code-doodles</div>
+                        <div class="card-status">ONLINE</div>
+                    </a>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-bar-section">3 mirrors</div>
+                    <div class="status-bar-section">Connected</div>
+                    <div class="status-bar-section" id="status-time">--:--:--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="/">[portfolio]</a>
+            <a href="/crypto.html">[wallet]</a>
         </div>
     </div>
 
     <script>
-        const bootSequence = [
-            { text: "BIOS DATE 02/27/26 08:14:33 VER 3.0.0", delay: 80 },
-            { text: "CPU: ARMv8-compatible, SPEED: 4200 MHz", delay: 60 },
-            { text: "MEMORY: 16384 MB SYSTEM... OK", delay: 50 },
-            { text: "", delay: 100 },
-            { text: "INITIALIZING ENVIRONMENT...", delay: 30 },
-            { text: "  > USER:     sapbot", delay: 20 },
-            { text: "  > GITHUB:   sapbotgit", delay: 20 },
-            { text: "  > MODULE:   code-doodles", delay: 20 },
-            { text: "  [OK]", delay: 150 },
-            { text: "", delay: 80 },
-            { text: "SCANNING EXPERIMENTAL ARCHIVES...", delay: 40 },
-            { text: "  Found 3 mirror sources", delay: 30 },
-            { text: "  [COMPLETE]", delay: 100 },
-            { text: "", delay: 60 },
-            { text: "ESTABLISHING SECURE SHELL...", delay: 40 },
-            { text: "  Connection established.", delay: 60 },
-            { text: "", delay: 80 },
-            { text: "═══════════════════════════════════════════════════", delay: 30 },
-            { text: "  WELCOME TO THE EXPERIMENT LAB", delay: 50 },
-            { text: "  Type 'help' for available commands", delay: 40 },
-            { text: "═══════════════════════════════════════════════════", delay: 30 },
-            { text: "", delay: 200 },
-            { text: "$ cd ~/code-doodles && ./load.sh", delay: 100 },
-            { text: "", delay: 500 }
-        ];
-
-        async function runBootSequence() {
-            const bootScreen = document.getElementById('boot-screen');
-            const bootText = document.getElementById('boot-text');
-            const terminal = document.getElementById('terminal');
-            
-            for (const line of bootSequence) {
-                const div = document.createElement('div');
-                div.className = 'boot-line';
-                div.textContent = line.text;
-                bootText.appendChild(div);
-                await new Promise(r => setTimeout(r, line.delay));
-                bootScreen.scrollTop = bootScreen.scrollHeight;
-            }
-            
-            await new Promise(r => setTimeout(r, 400));
-            
-            bootScreen.style.opacity = '0';
-            bootScreen.style.transform = 'scale(1.02)';
-            
-            setTimeout(() => {
-                bootScreen.classList.add('hidden');
-                terminal.classList.remove('hidden');
-                initApp();
-            }, 600);
-        }
-
-        function initApp() {
-            updateTime();
-            setInterval(updateTime, 1000);
-        }
-
         function updateTime() {
             const now = new Date();
-            document.getElementById('current-time').textContent = 
+            document.getElementById('status-time').textContent = 
                 now.toLocaleTimeString('en-US', { hour12: false });
         }
 
-        document.addEventListener('DOMContentLoaded', runBootSequence);
+        updateTime();
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>

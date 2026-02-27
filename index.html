@@ -3,302 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sapbot@portfolio ~</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+    <title>sapbot@portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="crt-container">
-        <div class="crt-overlay">
-            <div class="scanlines"></div>
-            <div class="vignette"></div>
-            <div class="noise"></div>
-        </div>
-        
-        <div id="boot-screen">
-            <div class="boot-sequence" id="boot-text"></div>
-        </div>
-
-        <div id="terminal" class="terminal hidden">
-            <header class="terminal-header">
-                <div class="terminal-tabs">
-                    <div class="tab active">
-                        <span class="tab-icon">◆</span>
-                        <span>portfolio.sh</span>
-                    </div>
-                    <div class="tab">
-                        <span class="tab-icon">○</span>
-                        <span>contributions.log</span>
-                    </div>
+    <div class="desktop">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <span>👤</span>
+                    <span>About Me</span>
                 </div>
-                <div class="terminal-controls">
-                    <span class="control close"></span>
-                    <span class="control minimize"></span>
-                    <span class="control maximize"></span>
+                <div class="title-bar-controls">
+                    <div class="title-bar-btn">_</div>
+                    <div class="title-bar-btn">□</div>
+                    <div class="title-bar-btn">×</div>
                 </div>
-            </header>
-            
-            <div class="terminal-body">
-                <div class="status-bar">
-                    <div class="status-left">
-                        <span class="status-dot online"></span>
-                        <span>Connected</span>
-                        <span class="separator">│</span>
-                        <span id="current-time">--:--:--</span>
-                    </div>
-                    <div class="status-right">
-                        <span>sapbot@github</span>
-                        <span class="separator">│</span>
-                        <span>pts/0</span>
-                    </div>
-                </div>
-                
-                <div class="terminal-content">
-                    <div class="hero-section">
-                        <div class="hero-line">
-                            <span class="prompt">$</span>
-                            <span class="command">whoami</span>
-                        </div>
-                        <div class="output">
-                            <h1 class="username">sapbot</h1>
-                            <p class="tagline">Open Source Contributor • Developer • Translator</p>
-                        </div>
-                        
-                        <div class="hero-line">
-                            <span class="prompt">$</span>
-                            <span class="command">cat ~/links</span>
-                        </div>
-                        <div class="output links-output">
-                            <a href="https://github.com/sapbotgit" target="_blank" class="link-item">
-                                <span class="link-icon">⌘</span>
-                                <span>github.com/sapbotgit</span>
+            </div>
+            <div class="window-body">
+                <div class="about-section">
+                    <div class="about-text">
+                        <h1>sapbot</h1>
+                        <p>Open Source Contributor • Developer • Translator</p>
+                        <div class="links-group">
+                            <a href="https://github.com/sapbotgit" target="_blank" class="win95-btn">
+                                <span>📁</span> GitHub
                             </a>
-                            <a href="https://cows.info.gf" target="_blank" class="link-item">
-                                <span class="link-icon">◈</span>
-                                <span>cows.info.gf</span>
+                            <a href="https://cows.info.gf" target="_blank" class="win95-btn">
+                                <span>🌐</span> Website
                             </a>
                         </div>
-                    </div>
-                    
-                    <div class="divider">
-                        <span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-                    </div>
-                    
-                    <div class="section">
-                        <div class="section-header">
-                            <span class="prompt">$</span>
-                            <span class="command">ls -la ~/contributions/</span>
-                        </div>
-                        
-                        <div class="filters">
-                            <div class="filter-group">
-                                <label>STATUS:</label>
-                                <select id="status-filter">
-                                    <option value="all">ALL</option>
-                                    <option value="merged">MERGED</option>
-                                    <option value="open">OPEN</option>
-                                </select>
-                            </div>
-                            <div class="filter-group">
-                                <label>LANG:</label>
-                                <select id="language-filter">
-                                    <option value="all">ALL</option>
-                                </select>
-                            </div>
-                            <div class="record-count">
-                                <span class="count-label">TOTAL:</span>
-                                <span id="record-count">0</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contributions-grid" id="contributions-list">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="terminal-footer">
-                    <div class="footer-left">
-                        <span class="prompt">$</span>
-                        <span class="cursor"></span>
-                    </div>
-                    <div class="footer-links">
-                        <a href="/code-doodles.html">[code_doodles]</a>
-                        <a href="/crypto.html">[wallet]</a>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <span>📋</span>
+                    <span>contributions.log</span>
+                </div>
+                <div class="title-bar-controls">
+                    <div class="title-bar-btn">_</div>
+                    <div class="title-bar-btn">□</div>
+                    <div class="title-bar-btn">×</div>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="section-title">
+                    <span>📂</span>
+                    <span>Pull Requests</span>
+                </div>
+                
+                <div class="inset-panel">
+                    <div class="toolbar">
+                        <button class="toolbar-btn active" id="filter-all">All</button>
+                        <button class="toolbar-btn" id="filter-merged">Merged</button>
+                        <button class="toolbar-btn" id="filter-open">Open</button>
+                    </div>
+                    <div class="contributions-list" id="contributions-list">
+                    </div>
+                </div>
+
+                <div class="status-bar">
+                    <div class="status-bar-section" id="status-count">21 items</div>
+                    <div class="status-bar-section">Connected</div>
+                    <div class="status-bar-section" id="status-time">--:--:--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="/code-doodles.html">[code_doodles]</a>
+            <a href="/crypto.html">[wallet]</a>
         </div>
     </div>
 
     <script>
         const portfolioData = [
-            { id: 36, repo: "IV2FI/DrawBot", name: "Translation to russian.", date: "Mar 2, 2024", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 37, repo: "IV2FI/DrawBot", name: "Chinese translations", date: "Mar 4, 2024", status: "Merged!", notes: "Machine translation.", language: "Markdown" },
-            { id: 3, repo: "gd4Ark/star-battle", name: "Russian README", date: "Mar 4, 2024", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 3063, repo: "hackclub/sprig", name: "[Sprig App] Trash Out+", date: "Apr 17, 2025", status: "Merged!", notes: "", language: "JavaScript" },
-            { id: 10, repo: "DJSures/NABU-LIB", name: "Fix a typos", date: "Apr 27, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 3091, repo: "hackclub/sprig", name: "[Sprig App] Yet Another Sprig 3D Engine", date: "Apr 30, 2025", status: "Merged!", notes: "", language: "JavaScript" },
-            { id: 928, repo: "coop-deluxe/sm64coopdx", name: "Corrections of spelling in Russian language by native speaker", date: "Aug 23, 2025", status: "Merged!", notes: "", language: "JSON" },
-            { id: 19171, repo: "tldr-pages/tldr", name: "doom: add page", date: "Nov 5, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 19285, repo: "tldr-pages/tldr", name: "autoexpect: add page", date: "Nov 8, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 52, repo: "libretro/libretro-content", name: "Add CRT Test Patterns into Images", date: "Nov 9, 2025", status: "Merged!", notes: "", language: "-" },
-            { id: 6045, repo: "lodash/lodash", name: "Document that meanBy can return NaN if array is empty.", date: "Nov 11, 2025", status: "Open.", notes: "", language: "Markdown" },
-            { id: 19354, repo: "tldr-pages/tldr", name: "bun-feedback: add page", date: "Nov 13, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 19407, repo: "tldr-pages/tldr", name: "koji-help: add page", date: "Nov 15, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 19501, repo: "tldr-pages/tldr", name: "conda-package: add page", date: "Nov 18, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 9082, repo: "microsoft/vscode-docs", name: "Fix issue #8823", date: "Nov 19, 2025", status: "Merged!", notes: "", language: "Markdown" },
-            { id: 7154, repo: "monkeytypegame/monkeytype", name: "impr(quotes): Add quotes from eChat source code", date: "Nov 26, 2025", status: "Merged!", notes: "", language: "JSON" },
-            { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", notes: "", language: "Markdown"},
-            { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Minor translation fixes.", date: "Feb 15, 2026", status: "Merged!", notes: "", language: "JSON"},
-            { id: 21191, repo: "tldr-pages/tldr", name: "zformat: add page", date: "Feb 19, 2026", status: "Open.", notes: "", language:"Markdown" },
-            { id: 77696, repo: "golang/go", name: "path/filepath: clarify Dir and Clean documentation for Windows", date: "Feb 19, 2026", status: "Open.", notes: "", language: "Markdown" },
-            { id: 3732, repo: "hackclub/sprig", name: "[Sprig App] Font Engine", date: "Feb 27, 2025", status: "Open.", notes: "", language: "JavaScript" }
+            { id: 36, repo: "IV2FI/DrawBot", name: "Translation to russian.", date: "Mar 2, 2024", status: "Merged!", language: "Markdown" },
+            { id: 37, repo: "IV2FI/DrawBot", name: "Chinese translations", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
+            { id: 3, repo: "gd4Ark/star-battle", name: "Russian README", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
+            { id: 3063, repo: "hackclub/sprig", name: "[Sprig App] Trash Out+", date: "Apr 17, 2025", status: "Merged!", language: "JavaScript" },
+            { id: 10, repo: "DJSures/NABU-LIB", name: "Fix a typos", date: "Apr 27, 2025", status: "Merged!", language: "Markdown" },
+            { id: 3091, repo: "hackclub/sprig", name: "[Sprig App] Yet Another Sprig 3D Engine", date: "Apr 30, 2025", status: "Merged!", language: "JavaScript" },
+            { id: 928, repo: "coop-deluxe/sm64coopdx", name: "Corrections of spelling in Russian language", date: "Aug 23, 2025", status: "Merged!", language: "JSON" },
+            { id: 19171, repo: "tldr-pages/tldr", name: "doom: add page", date: "Nov 5, 2025", status: "Merged!", language: "Markdown" },
+            { id: 19285, repo: "tldr-pages/tldr", name: "autoexpect: add page", date: "Nov 8, 2025", status: "Merged!", language: "Markdown" },
+            { id: 52, repo: "libretro/libretro-content", name: "Add CRT Test Patterns", date: "Nov 9, 2025", status: "Merged!", language: "-" },
+            { id: 6045, repo: "lodash/lodash", name: "Document that meanBy can return NaN", date: "Nov 11, 2025", status: "Open.", language: "Markdown" },
+            { id: 19354, repo: "tldr-pages/tldr", name: "bun-feedback: add page", date: "Nov 13, 2025", status: "Merged!", language: "Markdown" },
+            { id: 19407, repo: "tldr-pages/tldr", name: "koji-help: add page", date: "Nov 15, 2025", status: "Merged!", language: "Markdown" },
+            { id: 19501, repo: "tldr-pages/tldr", name: "conda-package: add page", date: "Nov 18, 2025", status: "Merged!", language: "Markdown" },
+            { id: 9082, repo: "microsoft/vscode-docs", name: "Fix issue #8823", date: "Nov 19, 2025", status: "Merged!", language: "Markdown" },
+            { id: 7154, repo: "monkeytypegame/monkeytype", name: "Add quotes from eChat source code", date: "Nov 26, 2025", status: "Merged!", language: "JSON" },
+            { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", language: "Markdown"},
+            { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Translation fixes", date: "Feb 15, 2026", status: "Merged!", language: "JSON"},
+            { id: 21191, repo: "tldr-pages/tldr", name: "zformat: add page", date: "Feb 19, 2026", status: "Open.", language: "Markdown" },
+            { id: 77696, repo: "golang/go", name: "path/filepath: clarify Dir and Clean", date: "Feb 19, 2026", status: "Open.", language: "Markdown" },
+            { id: 3732, repo: "hackclub/sprig", name: "[Sprig App] Font Engine", date: "Feb 27, 2025", status: "Open.", language: "JavaScript" }
         ];
 
-        const bootSequence = [
-            { text: "BIOS DATE 02/27/26 08:14:33 VER 3.0.0", delay: 80 },
-            { text: "CPU: ARMv8-compatible, SPEED: 4200 MHz", delay: 60 },
-            { text: "MEMORY: 16384 MB SYSTEM... OK", delay: 50 },
-            { text: "", delay: 100 },
-            { text: "INITIALIZING ENVIRONMENT...", delay: 30 },
-            { text: "  > USER:     sapbot", delay: 20 },
-            { text: "  > GITHUB:   sapbotgit", delay: 20 },
-            { text: "  > DOMAIN:   cows.info.gf", delay: 20 },
-            { text: "  > THEME:    retro-terminal-v3", delay: 20 },
-            { text: "  [OK]", delay: 150 },
-            { text: "", delay: 80 },
-            { text: "LOADING CONTRIBUTION DATABASE...", delay: 40 },
-            { text: "  Parsing 21 records...", delay: 30 },
-            { text: "  Building index...", delay: 25 },
-            { text: "  [COMPLETE]", delay: 100 },
-            { text: "", delay: 60 },
-            { text: "ESTABLISHING SECURE SHELL...", delay: 40 },
-            { text: "  Connection established.", delay: 60 },
-            { text: "", delay: 80 },
-            { text: "═══════════════════════════════════════════════════", delay: 30 },
-            { text: "  WELCOME TO SAPBOT PORTFOLIO TERMINAL v3.0", delay: 50 },
-            { text: "  Type 'help' for available commands", delay: 40 },
-            { text: "═══════════════════════════════════════════════════", delay: 30 },
-            { text: "", delay: 200 },
-            { text: "$ ./start_session.sh", delay: 100 },
-            { text: "", delay: 500 }
-        ];
+        let currentFilter = 'all';
 
-        async function runBootSequence() {
-            const bootScreen = document.getElementById('boot-screen');
-            const bootText = document.getElementById('boot-text');
-            const terminal = document.getElementById('terminal');
-            
-            for (const line of bootSequence) {
-                const div = document.createElement('div');
-                div.className = 'boot-line';
-                div.textContent = line.text;
-                bootText.appendChild(div);
-                await new Promise(r => setTimeout(r, line.delay));
-                bootScreen.scrollTop = bootScreen.scrollHeight;
-            }
-            
-            await new Promise(r => setTimeout(r, 400));
-            
-            bootScreen.style.opacity = '0';
-            bootScreen.style.transform = 'scale(1.02)';
-            
-            setTimeout(() => {
-                bootScreen.classList.add('hidden');
-                terminal.classList.remove('hidden');
-                initApp();
-            }, 600);
-        }
+        function renderContributions() {
+            const container = document.getElementById('contributions-list');
+            container.innerHTML = '';
 
-        function initApp() {
-            updateTime();
-            setInterval(updateTime, 1000);
-            initFilters();
-            renderContributions();
+            const filtered = portfolioData.filter(item => {
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'merged') return item.status.toLowerCase().includes('merged');
+                if (currentFilter === 'open') return item.status.toLowerCase().includes('open');
+                return true;
+            });
+
+            document.getElementById('status-count').textContent = `${filtered.length} items`;
+
+            filtered.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'contribution-row';
+
+                const statusClass = item.status.toLowerCase().includes('merged') ? 'merged' : 'open';
+                const repoUrl = `https://github.com/${item.repo}`;
+                const pullUrl = `${repoUrl}/pull/${item.id}`;
+
+                row.innerHTML = `
+                    <span class="pr-id">#${item.id}</span>
+                    <span class="pr-status ${statusClass}">${item.status}</span>
+                    <span class="pr-repo">
+                        <a href="${repoUrl}" target="_blank">${item.repo}</a>
+                    </span>
+                    <span class="pr-lang">${item.language || '-'}</span>
+                `;
+
+                container.appendChild(row);
+            });
         }
 
         function updateTime() {
             const now = new Date();
-            document.getElementById('current-time').textContent = 
+            document.getElementById('status-time').textContent = 
                 now.toLocaleTimeString('en-US', { hour12: false });
         }
 
-        function initFilters() {
-            const languages = [...new Set(portfolioData.map(p => p.language || '-'))].sort();
-            const langSelect = document.getElementById('language-filter');
-            languages.forEach(lang => {
-                const opt = document.createElement('option');
-                opt.value = lang;
-                opt.textContent = lang.toUpperCase();
-                langSelect.appendChild(opt);
-            });
-            
-            document.getElementById('status-filter').addEventListener('change', renderContributions);
-            document.getElementById('language-filter').addEventListener('change', renderContributions);
-        }
+        document.getElementById('filter-all').addEventListener('click', function() {
+            currentFilter = 'all';
+            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            renderContributions();
+        });
 
-        function renderContributions() {
-            const container = document.getElementById('contributions-list');
-            const statusFilter = document.getElementById('status-filter').value;
-            const langFilter = document.getElementById('language-filter').value;
-            
-            const filtered = portfolioData.filter(item => {
-                if (statusFilter !== 'all') {
-                    const matchesStatus = statusFilter === 'merged' 
-                        ? item.status.toLowerCase().includes('merged')
-                        : item.status.toLowerCase().includes('open');
-                    if (!matchesStatus) return false;
-                }
-                if (langFilter !== 'all') {
-                    if ((item.language || '-').toLowerCase() !== langFilter.toLowerCase()) return false;
-                }
-                return true;
-            });
-            
-            document.getElementById('record-count').textContent = filtered.length;
-            container.innerHTML = '';
-            
-            filtered.forEach((item, i) => {
-                const card = document.createElement('div');
-                card.className = 'contribution-card';
-                card.style.animationDelay = `${i * 0.05}s`;
-                
-                const isMerged = item.status.toLowerCase().includes('merged');
-                const statusClass = isMerged ? 'merged' : 'open';
-                const repoUrl = `https://github.com/${item.repo}`;
-                const pullUrl = `${repoUrl}/pull/${item.id}`;
-                
-                card.innerHTML = `
-                    <div class="card-header">
-                        <span class="pr-number">#${item.id}</span>
-                        <span class="status-badge ${statusClass}">${item.status}</span>
-                    </div>
-                    <div class="card-repo">
-                        <a href="${repoUrl}" target="_blank">${item.repo}</a>
-                    </div>
-                    <div class="card-title">${item.name}</div>
-                    <div class="card-meta">
-                        <span class="meta-item">
-                            <span class="meta-icon">◷</span>
-                            ${item.date}
-                        </span>
-                        <span class="meta-item lang">
-                            <span class="meta-icon">◇</span>
-                            ${item.language || '-'}
-                        </span>
-                    </div>
-                    <a href="${pullUrl}" target="_blank" class="card-link">
-                        <span>View PR</span>
-                        <span class="link-arrow">→</span>
-                    </a>
-                `;
-                container.appendChild(card);
-            });
-        }
+        document.getElementById('filter-merged').addEventListener('click', function() {
+            currentFilter = 'merged';
+            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            renderContributions();
+        });
 
-        document.addEventListener('DOMContentLoaded', runBootSequence);
+        document.getElementById('filter-open').addEventListener('click', function() {
+            currentFilter = 'open';
+            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            renderContributions();
+        });
+
+        updateTime();
+        setInterval(updateTime, 1000);
+        renderContributions();
     </script>
 </body>
 </html>
