@@ -3,125 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sapbot@github:~/portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>sapbot@portfolio ~</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- CRT Overlays -->
-    <div class="scanlines"></div>
-    <div class="crt-flicker"></div>
-
-    <!-- Boot Sequence -->
-    <div id="boot-screen">
-        <div id="boot-content" class="boot-text glow-text text-xl md:text-2xl"></div>
-    </div>
-
-    <!-- Main Interface -->
-    <div id="main-interface" class="hidden flex-col h-full p-4 md:p-8 max-w-7xl mx-auto w-full">
+    <div class="crt-container">
+        <div class="crt-overlay">
+            <div class="scanlines"></div>
+            <div class="vignette"></div>
+            <div class="noise"></div>
+        </div>
         
-        <!-- Header -->
-        <header class="border-b-2 border-[#ffb000] pb-4 mb-6 flex flex-col md:flex-row justify-between items-end gap-4">
-            <div class="w-full md:w-auto">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="text-2xl">[</span>
-                    <h1 class="text-4xl md:text-6xl font-bold glow-text tracking-widest glitch" data-text="SAPBOT">SAPBOT</h1>
-                    <span class="text-2xl">]</span>
-                </div>
-                <p class="text-xl opacity-80 flex items-center gap-2 flex-wrap">
-                    <span>USER: sapbot</span>
-                    <span class="opacity-50">|</span>
-                    <a href="https://github.com/sapbotgit" target="_blank" class="hover:text-white hover:shadow-[0_0_10px_#fff] transition-all border-b border-[#ffb000]">github.com/sapbotgit</a>
-                    <span class="opacity-50">|</span>
-                    <span class="text-[#0f0]">JS_EXPERT</span>
-                </p>
-            </div>
-            <div class="text-right w-full md:w-auto border border-[#ffb000] p-3 bg-[#1a1a1a]">
-                <div id="clock" class="text-3xl glow-text font-bold">00:00:00</div>
-                <div class="flex gap-4 text-sm mt-1 justify-end">
-                    <span>MEM: 64KB OK</span>
-                    <span>NET: CONNECTED</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Navigation / Breadcrumb -->
-        <div class="mb-4 text-sm md:text-base opacity-90 font-bold flex flex-wrap items-center gap-2">
-            <span>ROOT</span>
-            <span class="opacity-50">/</span>
-            <a href="https://cows.info.gf" target="_blank" class="hover:text-white hover:shadow-[0_0_8px_#fff] transition-all px-2 py-1 border border-[#ffb000] bg-[#1a1a1a] flex items-center gap-2">
-                <span class="animate-pulse">◉</span> MAIN_HUB (cows.info.gf)
-            </a>
-            <span class="opacity-50">/</span>
-            <span class="text-white glow-text">PORTFOLIO_DB</span>
-            <span class="opacity-50">|</span>
-            <a href="/code-doodles.html" class="hover:text-white hover:shadow-[0_0_8px_#fff] transition-all px-2 py-1 border border-[#ffb000] bg-[#1a1a1a] text-xs">
-                [CODE_DOODLES]
-            </a>
+        <div id="boot-screen">
+            <div class="boot-sequence" id="boot-text"></div>
         </div>
 
-        <!-- Controls -->
-        <div class="mb-4 flex flex-wrap gap-2 sm:gap-4 items-start sm:items-center justify-between bg-[#1a1a1a] p-2 sm:p-3 border border-[#ffb000]">
-            <div class="flex flex-wrap gap-2 items-center w-full sm:w-auto">
-                <span class="animate-pulse text-[#0f0] text-sm sm:text-base">● ONLINE</span>
-                <span class="uppercase tracking-widest hidden sm:inline text-sm">Filter_View:</span>
-                <select id="status-filter" class="bg-black border border-[#ffb000] text-[#ffb000] p-2 sm:p-1 font-inherit focus:outline-none focus:shadow-[0_0_10px_#ffb000] cursor-pointer w-full sm:w-auto min-h-[44px]">
-                    <option value="all">ALL_RECORDS</option>
-                    <option value="merged">MERGED</option>
-                    <option value="open">OPEN</option>
-                </select>
-                <select id="language-filter" class="bg-black border border-[#ffb000] text-[#ffb000] p-2 sm:p-1 font-inherit focus:outline-none focus:shadow-[0_0_10px_#ffb000] cursor-pointer w-full sm:w-auto min-h-[44px]">
-                    <option value="all">ALL_LANGS</option>
-                </select>
-                <div class="text-xs opacity-70 border-l border-[#ffb000] pl-2 sm:pl-4 ml-0 sm:ml-2 w-full sm:w-auto">
-                    RECORDS: <span id="record-count">0</span>
+        <div id="terminal" class="terminal hidden">
+            <header class="terminal-header">
+                <div class="terminal-tabs">
+                    <div class="tab active">
+                        <span class="tab-icon">◆</span>
+                        <span>portfolio.sh</span>
+                    </div>
+                    <div class="tab">
+                        <span class="tab-icon">○</span>
+                        <span>contributions.log</span>
+                    </div>
+                </div>
+                <div class="terminal-controls">
+                    <span class="control close"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+            </header>
+            
+            <div class="terminal-body">
+                <div class="status-bar">
+                    <div class="status-left">
+                        <span class="status-dot online"></span>
+                        <span>Connected</span>
+                        <span class="separator">│</span>
+                        <span id="current-time">--:--:--</span>
+                    </div>
+                    <div class="status-right">
+                        <span>sapbot@github</span>
+                        <span class="separator">│</span>
+                        <span>pts/0</span>
+                    </div>
+                </div>
+                
+                <div class="terminal-content">
+                    <div class="hero-section">
+                        <div class="hero-line">
+                            <span class="prompt">$</span>
+                            <span class="command">whoami</span>
+                        </div>
+                        <div class="output">
+                            <h1 class="username">sapbot</h1>
+                            <p class="tagline">Open Source Contributor • Developer • Translator</p>
+                        </div>
+                        
+                        <div class="hero-line">
+                            <span class="prompt">$</span>
+                            <span class="command">cat ~/links</span>
+                        </div>
+                        <div class="output links-output">
+                            <a href="https://github.com/sapbotgit" target="_blank" class="link-item">
+                                <span class="link-icon">⌘</span>
+                                <span>github.com/sapbotgit</span>
+                            </a>
+                            <a href="https://cows.info.gf" target="_blank" class="link-item">
+                                <span class="link-icon">◈</span>
+                                <span>cows.info.gf</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="divider">
+                        <span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">
+                            <span class="prompt">$</span>
+                            <span class="command">ls -la ~/contributions/</span>
+                        </div>
+                        
+                        <div class="filters">
+                            <div class="filter-group">
+                                <label>STATUS:</label>
+                                <select id="status-filter">
+                                    <option value="all">ALL</option>
+                                    <option value="merged">MERGED</option>
+                                    <option value="open">OPEN</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>LANG:</label>
+                                <select id="language-filter">
+                                    <option value="all">ALL</option>
+                                </select>
+                            </div>
+                            <div class="record-count">
+                                <span class="count-label">TOTAL:</span>
+                                <span id="record-count">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contributions-grid" id="contributions-list">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="terminal-footer">
+                    <div class="footer-left">
+                        <span class="prompt">$</span>
+                        <span class="cursor"></span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="/code-doodles.html">[code_doodles]</a>
+                        <a href="/crypto.html">[wallet]</a>
+                    </div>
                 </div>
             </div>
-            <div class="text-sm opacity-70 hidden md:block">
-                [SCROLL_TO_NAVIGATE] // [CLICK_TO_INSPECT]
-            </div>
         </div>
-
-        <!-- Data Table -->
-        <div class="flex-grow overflow-auto border-2 border-[#ffb000] glow-border relative">
-            <table class="retro-table">
-                <thead class="sticky top-0 z-10">
-                    <tr>
-                        <th>ID</th>
-                        <th>REPOSITORY</th>
-                        <th>NAME</th>
-                        <th>DATE</th>
-                        <th>LANG</th>
-                        <th>STATUS</th>
-                        <th>NOTES</th>
-                    </tr>
-                </thead>
-                <tbody id="portfolio-body">
-                    <!-- JS will populate this -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-6 border-t-2 border-[#ffb000] pt-4 flex flex-col md:flex-row justify-between text-sm opacity-80 gap-4">
-            <div class="flex items-center gap-2">
-                <span>sapbot@github:~$</span>
-                <span class="cursor-blink"></span>
-            </div>
-            <div class="flex gap-6">
-                <a href="/code-doodles.html" class="hover:text-white transition-colors border-b border-transparent hover:border-white">[CODE_DOODLES]</a>
-                <a href="/crypto.html" class="hover:text-white transition-colors border-b border-transparent hover:border-white">[WALLET]</a>
-                <span>TERM_ID: #8842-XJ</span>
-            </div>
-        </footer>
     </div>
 
     <script>
-        // Data Source
         const portfolioData = [
             { id: 36, repo: "IV2FI/DrawBot", name: "Translation to russian.", date: "Mar 2, 2024", status: "Merged!", notes: "", language: "Markdown" },
             { id: 37, repo: "IV2FI/DrawBot", name: "Chinese translations", date: "Mar 4, 2024", status: "Merged!", notes: "Machine translation.", language: "Markdown" },
@@ -140,137 +151,152 @@
             { id: 9082, repo: "microsoft/vscode-docs", name: "Fix issue #8823", date: "Nov 19, 2025", status: "Merged!", notes: "", language: "Markdown" },
             { id: 7154, repo: "monkeytypegame/monkeytype", name: "impr(quotes): Add quotes from eChat source code", date: "Nov 26, 2025", status: "Merged!", notes: "", language: "JSON" },
             { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", notes: "", language: "Markdown"},
-                        { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Minor translation fixes.", date: "Feb 15, 2026", status: "Merged!", notes: "", language: "JSON"},
+            { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Minor translation fixes.", date: "Feb 15, 2026", status: "Merged!", notes: "", language: "JSON"},
             { id: 21191, repo: "tldr-pages/tldr", name: "zformat: add page", date: "Feb 19, 2026", status: "Open.", notes: "", language:"Markdown" },
             { id: 77696, repo: "golang/go", name: "path/filepath: clarify Dir and Clean documentation for Windows", date: "Feb 19, 2026", status: "Open.", notes: "", language: "Markdown" },
             { id: 3732, repo: "hackclub/sprig", name: "[Sprig App] Font Engine", date: "Feb 27, 2025", status: "Open.", notes: "", language: "JavaScript" }
         ];
 
-        // Boot Sequence Logic
-        const bootText = [
-            "BIOS DATE 02/08/26 14:22:51 VER 2.0",
-            "CPU: NEC V20, SPEED: 8 MHz",
-            "640K RAM SYSTEM... OK",
-            "",
-            "INITIALIZING USER PROFILE...",
-            "  > USER: sapbot",
-            "  > GITHUB: sapbotgit",
-            "  > MAINFRAME: cows.info.gf",
-            ".............................. [DONE]",
-            "",
-            "LOADING PORTFOLIO ASSETS...",
-            "DECRYPTING CONTRIBUTION DATA...",
-            ".............................. [DONE]",
-            "ESTABLISHING SECURE CONNECTION...",
-            ".............................. [DONE]",
-            "",
-            "EXECUTE PORTFOLIO_VIEWER.EXE",
-            "",
-            "WELCOME BACK, OPERATOR."
+        const bootSequence = [
+            { text: "BIOS DATE 02/27/26 08:14:33 VER 3.0.0", delay: 80 },
+            { text: "CPU: ARMv8-compatible, SPEED: 4200 MHz", delay: 60 },
+            { text: "MEMORY: 16384 MB SYSTEM... OK", delay: 50 },
+            { text: "", delay: 100 },
+            { text: "INITIALIZING ENVIRONMENT...", delay: 30 },
+            { text: "  > USER:     sapbot", delay: 20 },
+            { text: "  > GITHUB:   sapbotgit", delay: 20 },
+            { text: "  > DOMAIN:   cows.info.gf", delay: 20 },
+            { text: "  > THEME:    retro-terminal-v3", delay: 20 },
+            { text: "  [OK]", delay: 150 },
+            { text: "", delay: 80 },
+            { text: "LOADING CONTRIBUTION DATABASE...", delay: 40 },
+            { text: "  Parsing 21 records...", delay: 30 },
+            { text: "  Building index...", delay: 25 },
+            { text: "  [COMPLETE]", delay: 100 },
+            { text: "", delay: 60 },
+            { text: "ESTABLISHING SECURE SHELL...", delay: 40 },
+            { text: "  Connection established.", delay: 60 },
+            { text: "", delay: 80 },
+            { text: "═══════════════════════════════════════════════════", delay: 30 },
+            { text: "  WELCOME TO SAPBOT PORTFOLIO TERMINAL v3.0", delay: 50 },
+            { text: "  Type 'help' for available commands", delay: 40 },
+            { text: "═══════════════════════════════════════════════════", delay: 30 },
+            { text: "", delay: 200 },
+            { text: "$ ./start_session.sh", delay: 100 },
+            { text: "", delay: 500 }
         ];
 
         async function runBootSequence() {
             const bootScreen = document.getElementById('boot-screen');
-            const bootContent = document.getElementById('boot-content');
-            const mainInterface = document.getElementById('main-interface');
-
-            for (let line of bootText) {
+            const bootText = document.getElementById('boot-text');
+            const terminal = document.getElementById('terminal');
+            
+            for (const line of bootSequence) {
                 const div = document.createElement('div');
-                div.textContent = line;
-                bootContent.appendChild(div);
-                
-                await new Promise(r => setTimeout(r, Math.random() * 200 + 30));
+                div.className = 'boot-line';
+                div.textContent = line.text;
+                bootText.appendChild(div);
+                await new Promise(r => setTimeout(r, line.delay));
                 bootScreen.scrollTop = bootScreen.scrollHeight;
             }
-
-            await new Promise(r => setTimeout(r, 600));
             
-            bootScreen.style.transition = "opacity 0.5s";
-            bootScreen.style.opacity = "0";
+            await new Promise(r => setTimeout(r, 400));
+            
+            bootScreen.style.opacity = '0';
+            bootScreen.style.transform = 'scale(1.02)';
             
             setTimeout(() => {
                 bootScreen.classList.add('hidden');
-                mainInterface.classList.remove('hidden');
-                mainInterface.classList.add('flex');
-                initLanguageFilter();
-                renderTable();
-                startClock();
-            }, 500);
+                terminal.classList.remove('hidden');
+                initApp();
+            }, 600);
         }
 
-        function renderTable() {
-            const tbody = document.getElementById('portfolio-body');
-            const countEl = document.getElementById('record-count');
-            const statusFilter = document.getElementById('status-filter').value;
-            const languageFilter = document.getElementById('language-filter').value;
-            tbody.innerHTML = '';
+        function initApp() {
+            updateTime();
+            setInterval(updateTime, 1000);
+            initFilters();
+            renderContributions();
+        }
 
-            const filteredData = portfolioData.filter(item => {
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = 
+                now.toLocaleTimeString('en-US', { hour12: false });
+        }
+
+        function initFilters() {
+            const languages = [...new Set(portfolioData.map(p => p.language || '-'))].sort();
+            const langSelect = document.getElementById('language-filter');
+            languages.forEach(lang => {
+                const opt = document.createElement('option');
+                opt.value = lang;
+                opt.textContent = lang.toUpperCase();
+                langSelect.appendChild(opt);
+            });
+            
+            document.getElementById('status-filter').addEventListener('change', renderContributions);
+            document.getElementById('language-filter').addEventListener('change', renderContributions);
+        }
+
+        function renderContributions() {
+            const container = document.getElementById('contributions-list');
+            const statusFilter = document.getElementById('status-filter').value;
+            const langFilter = document.getElementById('language-filter').value;
+            
+            const filtered = portfolioData.filter(item => {
                 if (statusFilter !== 'all') {
-                    if (statusFilter === 'merged' && !item.status.toLowerCase().includes('merged')) return false;
-                    if (statusFilter === 'open' && !item.status.toLowerCase().includes('open')) return false;
+                    const matchesStatus = statusFilter === 'merged' 
+                        ? item.status.toLowerCase().includes('merged')
+                        : item.status.toLowerCase().includes('open');
+                    if (!matchesStatus) return false;
                 }
-                if (languageFilter !== 'all') {
-                    const itemLang = (item.language || '-').toLowerCase();
-                    if (itemLang !== languageFilter.toLowerCase()) return false;
+                if (langFilter !== 'all') {
+                    if ((item.language || '-').toLowerCase() !== langFilter.toLowerCase()) return false;
                 }
                 return true;
             });
-
-            countEl.textContent = filteredData.length;
-
-            filteredData.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                tr.style.animation = `fadeIn 0.3s ease forwards ${index * 0.03}s`;
-                tr.style.opacity = '0';
-
-                const statusClass = item.status.toLowerCase().includes('merged') ? 'status-merged' : 'status-open';
+            
+            document.getElementById('record-count').textContent = filtered.length;
+            container.innerHTML = '';
+            
+            filtered.forEach((item, i) => {
+                const card = document.createElement('div');
+                card.className = 'contribution-card';
+                card.style.animationDelay = `${i * 0.05}s`;
+                
+                const isMerged = item.status.toLowerCase().includes('merged');
+                const statusClass = isMerged ? 'merged' : 'open';
                 const repoUrl = `https://github.com/${item.repo}`;
                 const pullUrl = `${repoUrl}/pull/${item.id}`;
-
-                tr.innerHTML = `
-                    <td data-label="ID"><a href="${pullUrl}" target="_blank">#${item.id}</a></td>
-                    <td data-label="REPO"><a href="${repoUrl}" target="_blank">${item.repo}</a></td>
-                    <td data-label="NAME">${item.name}</td>
-                    <td data-label="DATE">${item.date}</td>
-                    <td data-label="LANG" class="text-[#0f0]">${item.language || '-'}</td>
-                    <td data-label="STATUS" class="${statusClass} font-bold tracking-wider">${item.status}</td>
-                    <td data-label="NOTES" class="opacity-80 italic">${item.notes}</td>
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="pr-number">#${item.id}</span>
+                        <span class="status-badge ${statusClass}">${item.status}</span>
+                    </div>
+                    <div class="card-repo">
+                        <a href="${repoUrl}" target="_blank">${item.repo}</a>
+                    </div>
+                    <div class="card-title">${item.name}</div>
+                    <div class="card-meta">
+                        <span class="meta-item">
+                            <span class="meta-icon">◷</span>
+                            ${item.date}
+                        </span>
+                        <span class="meta-item lang">
+                            <span class="meta-icon">◇</span>
+                            ${item.language || '-'}
+                        </span>
+                    </div>
+                    <a href="${pullUrl}" target="_blank" class="card-link">
+                        <span>View PR</span>
+                        <span class="link-arrow">→</span>
+                    </a>
                 `;
-                tbody.appendChild(tr);
+                container.appendChild(card);
             });
         }
-
-        function startClock() {
-            const clockEl = document.getElementById('clock');
-            setInterval(() => {
-                const now = new Date();
-                clockEl.textContent = now.toLocaleTimeString('en-US', { hour12: false });
-            }, 1000);
-        }
-
-        document.getElementById('status-filter').addEventListener('change', renderTable);
-        document.getElementById('language-filter').addEventListener('change', renderTable);
-
-        function initLanguageFilter() {
-            const languages = [...new Set(portfolioData.map(item => item.language || '-'))].sort();
-            const langSelect = document.getElementById('language-filter');
-            languages.forEach(lang => {
-                const option = document.createElement('option');
-                option.value = lang;
-                option.textContent = lang.toUpperCase();
-                langSelect.appendChild(option);
-            });
-        }
-
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateX(-10px); }
-                to { opacity: 1; transform: translateX(0); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
 
         document.addEventListener('DOMContentLoaded', runBootSequence);
     </script>

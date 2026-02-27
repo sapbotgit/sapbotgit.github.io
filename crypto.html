@@ -3,252 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sapbot@github:~/wallet</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>sapbot@wallet ~</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="crypto.css">
 </head>
 <body>
-
-    <!-- CRT Overlays -->
-    <div class="scanlines"></div>
-    <div class="crt-flicker"></div>
-
-    <!-- Boot Sequence -->
-    <div id="boot-screen">
-        <div id="boot-content" class="boot-text glow-text text-xl md:text-2xl"></div>
-    </div>
-
-    <!-- Main Interface -->
-    <div id="main-interface" class="hidden flex-col h-full p-4 md:p-8 max-w-7xl mx-auto w-full">
+    <div class="crt-container">
+        <div class="crt-overlay">
+            <div class="scanlines"></div>
+            <div class="vignette"></div>
+            <div class="noise"></div>
+        </div>
         
-        <!-- Header -->
-        <header class="border-b-2 border-[#ffb000] pb-4 mb-6 flex flex-col md:flex-row justify-between items-end gap-4">
-            <div class="w-full md:w-auto">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="text-2xl">[</span>
-                    <h1 class="text-4xl md:text-6xl font-bold glow-text tracking-widest glitch" data-text="WALLET">WALLET</h1>
-                    <span class="text-2xl">]</span>
+        <div id="boot-screen">
+            <div class="boot-sequence" id="boot-text"></div>
+        </div>
+
+        <div id="terminal" class="terminal hidden">
+            <header class="terminal-header">
+                <div class="terminal-tabs">
+                    <div class="tab active">
+                        <span class="tab-icon">◆</span>
+                        <span>wallet.sh</span>
+                    </div>
+                    <div class="tab">
+                        <span class="tab-icon">○</span>
+                        <span>vault.log</span>
+                    </div>
                 </div>
-                <p class="text-xl opacity-80 flex items-center gap-2 flex-wrap">
-                    <span>USER: sapbot</span>
-                    <span class="opacity-50">|</span>
-                    <span class="text-[#0f0]">SECURE_VAULT</span>
-                    <span class="opacity-50">|</span>
-                    <span class="animate-pulse text-[#0f0]">● ENCRYPTED</span>
-                </p>
-            </div>
-            <div class="text-right w-full md:w-auto border border-[#ffb000] p-3 bg-[#1a1a1a]">
-                <div id="clock" class="text-3xl glow-text font-bold">00:00:00</div>
-                <div class="flex gap-4 text-sm mt-1 justify-end">
-                    <span>MEM: 64KB OK</span>
-                    <span>NET: CONNECTED</span>
+                <div class="terminal-controls">
+                    <span class="control close"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+            </header>
+            
+            <div class="terminal-body">
+                <div class="status-bar">
+                    <div class="status-left">
+                        <span class="status-dot online"></span>
+                        <span>Connected</span>
+                        <span class="separator">│</span>
+                        <span id="current-time">--:--:--</span>
+                    </div>
+                    <div class="status-right">
+                        <span>sapbot@vault</span>
+                        <span class="separator">│</span>
+                        <span>pts/0</span>
+                    </div>
+                </div>
+                
+                <div class="terminal-content">
+                    <div class="hero-section">
+                        <div class="hero-line">
+                            <span class="prompt">$</span>
+                            <span class="command">cd ~/wallet</span>
+                        </div>
+                        <div class="output">
+                            <h1 class="username">WALLET</h1>
+                            <p class="tagline">Secure Crypto Vault • Encrypted Storage</p>
+                        </div>
+                        
+                        <div class="hero-line">
+                            <span class="prompt">$</span>
+                            <span class="command">./verify_vault.sh</span>
+                        </div>
+                        <div class="output">
+                            <div class="status-badge">ENCRYPTED</div>
+                            <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                                Click address to copy • All assets verified
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="divider">
+                        <span>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">
+                            <span class="prompt">$</span>
+                            <span class="command">ls -la ~/assets/</span>
+                        </div>
+                        
+                        <div class="filters">
+                            <div class="record-count">
+                                <span class="count-label">ASSETS:</span>
+                                <span id="asset-count">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="wallet-grid" id="wallet-list">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="terminal-footer">
+                    <div class="footer-left">
+                        <span class="prompt">$</span>
+                        <span id="footer-status">READY</span>
+                        <span class="cursor"></span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="/">[portfolio]</a>
+                        <a href="/code-doodles.html">[code_doodles]</a>
+                    </div>
                 </div>
             </div>
-        </header>
-
-        <!-- Navigation / Breadcrumb -->
-        <div class="mb-4 text-sm md:text-base opacity-90 font-bold flex flex-wrap items-center gap-2">
-            <span>ROOT</span>
-            <span class="opacity-50">/</span>
-            <a href="https://cows.info.gf" target="_blank" class="hover:text-white hover:shadow-[0_0_8px_#fff] transition-all px-2 py-1 border border-[#ffb000] bg-[#1a1a1a] flex items-center gap-2">
-                <span class="animate-pulse">◉</span> MAIN_HUB (cows.info.gf)
-            </a>
-            <span class="opacity-50">/</span>
-            <a href="/" class="hover:text-white hover:shadow-[0_0_8px_#fff] transition-all px-2 py-1 border border-[#ffb000] bg-[#1a1a1a]">
-                PORTFOLIO_DB
-            </a>
-            <span class="opacity-50">/</span>
-            <span class="text-white glow-text">WALLET</span>
         </div>
-
-        <!-- Controls -->
-        <div class="mb-4 flex flex-wrap gap-4 items-center justify-between bg-[#1a1a1a] p-3 border border-[#ffb000]">
-            <div class="flex gap-4 items-center flex-wrap">
-                <span class="animate-pulse text-[#0f0]">● SECURE</span>
-                <span class="uppercase tracking-widest hidden sm:inline">View_Mode:</span>
-                <span class="text-xs opacity-70 border-l border-[#ffb000] pl-4 ml-2">
-                    ASSETS: <span id="asset-count">0</span>
-                </span>
-            </div>
-            <div class="text-sm opacity-70 hidden md:block">
-                [CLICK_TO_COPY_ADDRESS] // [HIDDEN_FOR_PRIVACY]
-            </div>
-        </div>
-
-        <!-- Data Table -->
-        <div class="flex-grow overflow-auto border-2 border-[#ffb000] glow-border relative">
-            <table class="retro-table">
-                <thead class="sticky top-0 z-10">
-                    <tr>
-                        <th>ID</th>
-                        <th>COIN</th>
-                        <th>NETWORK</th>
-                        <th>STATUS</th>
-                        <th>ACTION</th>
-                    </tr>
-                </thead>
-                <tbody id="wallet-body">
-                    <!-- JS will populate this -->
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Footer -->
-        <footer class="mt-6 border-t-2 border-[#ffb000] pt-4 flex flex-col md:flex-row justify-between text-sm opacity-80 gap-4">
-            <div class="flex items-center gap-2">
-                <span>sapbot@github:~$</span>
-                <span id="status-text">READY</span>
-                <span class="cursor-blink"></span>
-            </div>
-            <div class="flex gap-6">
-                <a href="/" class="hover:text-white transition-colors border-b border-transparent hover:border-white">[PORTFOLIO]</a>
-                <a href="/code-doodles.html" class="hover:text-white transition-colors border-b border-transparent hover:border-white">[CODE_DOODLES]</a>
-                <span>TERM_ID: #8842-XJ</span>
-            </div>
-        </footer>
     </div>
 
     <script>
-        // Data Source
         const walletData = [
-            { id: 1, coin: "TRON", network: "Tron", status: "Active" },
-            { id: 2, coin: "ETH", network: "Ethereum", status: "Active" },
-            { id: 3, coin: "AKT", network: "Akash", status: "Active" },
-            { id: 4, coin: "OSMO", network: "Osmosis", status: "Active" },
-            { id: 5, coin: "BABY", network: "Babylon", status: "Active" },
-            { id: 6, coin: "BCH", network: "Bitcoin Cash", status: "Active" },
-            { id: 7, coin: "BTC", network: "Bitcoin", status: "Active" },
-            { id: 8, coin: "DOGE", network: "Dogecoin", status: "Active" },
-            { id: 9, coin: "TST", network: "Test Token", status: "Active" }
+            { id: 1, coin: "TRON", network: "Tron", address: "TQbpn2E2LKnULqxSkxhq9thiTWj2WmGt5S" },
+            { id: 2, coin: "ETH", network: "Ethereum", address: "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8" },
+            { id: 3, coin: "AKT", network: "Akash", address: "akash1xcgug6hu9a6r244mjp8q23x9e6p5x2az8py8xl" },
+            { id: 4, coin: "OSMO", network: "Osmosis", address: "osmo1xcgug6hu9a6r244mjp8q23x9e6p5x2azzp6sfh" },
+            { id: 5, coin: "BABY", network: "Babylon", address: "bbn1xcgug6hu9a6r244mjp8q23x9e6p5x2azayc3qu" },
+            { id: 6, coin: "BCH", network: "Bitcoin Cash", address: "qztfhz6lcwgmdeyxv8gpsmz0hxx5c260rvv4sza3h6" },
+            { id: 7, coin: "BTC", network: "Bitcoin", address: "1GSujd74Q5DrLKiMEtcnjwEpr6ZvPfWZky" },
+            { id: 8, coin: "DOGE", network: "Dogecoin", address: "DS3oyWT75iSAxE2guxEkrgTrdDFQ34ETbz" },
+            { id: 9, coin: "TST", network: "Test Token", address: "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8" }
         ];
 
-        const walletAddresses = {
-            "TRON": "TQbpn2E2LKnULqxSkxhq9thiTWj2WmGt5S",
-            "ETH": "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8",
-            "AKT": "akash1xcgug6hu9a6r244mjp8q23x9e6p5x2az8py8xl",
-            "OSMO": "osmo1xcgug6hu9a6r244mjp8q23x9e6p5x2azzp6sfh",
-            "BABY": "bbn1xcgug6hu9a6r244mjp8q23x9e6p5x2azayc3qu",
-            "BCH": "qztfhz6lcwgmdeyxv8gpsmz0hxx5c260rvv4sza3h6",
-            "BTC": "1GSujd74Q5DrLKiMEtcnjwEpr6ZvPfWZky",
-            "DOGE": "DS3oyWT75iSAxE2guxEkrgTrdDFQ34ETbz",
-            "TST": "0x98fd926E0D1d6D49E7BB519B249f6D3a9528F5D8"
-        };
-
-        // Boot Sequence Logic
-        const bootText = [
-            "BIOS DATE 02/08/26 14:22:51 VER 2.0",
-            "CPU: NEC V20, SPEED: 8 MHz",
-            "640K RAM SYSTEM... OK",
-            "",
-            "INITIALIZING USER PROFILE...",
-            "  > USER: sapbot",
-            "  > GITHUB: sapbotgit",
-            "  > MAINFRAME: cows.info.gf",
-            ".............................. [DONE]",
-            "",
-            "LOADING CRYPTO VAULT...",
-            "DECRYPTING WALLET CONTAINERS...",
-            "VERIFYING CHECKSUMS...",
-            ".............................. [DONE]",
-            "ESTABLISHING SECURE CONNECTION...",
-            ".............................. [DONE]",
-            "",
-            "EXECUTE WALLET_VIEWER.EXE",
-            "",
-            "SECURE VAULT ACCESSED."
+        const bootSequence = [
+            { text: "BIOS DATE 02/27/26 08:14:33 VER 3.0.0", delay: 80 },
+            { text: "CPU: ARMv8-compatible, SPEED: 4200 MHz", delay: 60 },
+            { text: "MEMORY: 16384 MB SYSTEM... OK", delay: 50 },
+            { text: "", delay: 100 },
+            { text: "INITIALIZING SECURE VAULT...", delay: 30 },
+            { text: "  > USER:     sapbot", delay: 20 },
+            { text: "  > MODE:     ENCRYPTED", delay: 20 },
+            { text: "  > PROTOCOL: AES-256-GCM", delay: 20 },
+            { text: "  [OK]", delay: 150 },
+            { text: "", delay: 80 },
+            { text: "LOADING CRYPTO ASSETS...", delay: 40 },
+            { text: "  Scanning wallet containers...", delay: 30 },
+            { text: "  Found 9 assets", delay: 25 },
+            { text: "  [COMPLETE]", delay: 100 },
+            { text: "", delay: 60 },
+            { text: "VERIFYING CHECKSUMS...", delay: 40 },
+            { text: "  All checksums valid.", delay: 60 },
+            { text: "", delay: 80 },
+            { text: "═══════════════════════════════════════════════════", delay: 30 },
+            { text: "  SECURE VAULT ACCESSED", delay: 50 },
+            { text: "  Type 'help' for available commands", delay: 40 },
+            { text: "═══════════════════════════════════════════════════", delay: 30 },
+            { text: "", delay: 200 },
+            { text: "$ cd ~/wallet && ./unlock.sh", delay: 100 },
+            { text: "", delay: 500 }
         ];
 
         async function runBootSequence() {
             const bootScreen = document.getElementById('boot-screen');
-            const bootContent = document.getElementById('boot-content');
-            const mainInterface = document.getElementById('main-interface');
-
-            for (let line of bootText) {
+            const bootText = document.getElementById('boot-text');
+            const terminal = document.getElementById('terminal');
+            
+            for (const line of bootSequence) {
                 const div = document.createElement('div');
-                div.textContent = line;
-                bootContent.appendChild(div);
-                
-                await new Promise(r => setTimeout(r, Math.random() * 200 + 30));
+                div.className = 'boot-line';
+                div.textContent = line.text;
+                bootText.appendChild(div);
+                await new Promise(r => setTimeout(r, line.delay));
                 bootScreen.scrollTop = bootScreen.scrollHeight;
             }
-
-            await new Promise(r => setTimeout(r, 600));
             
-            bootScreen.style.transition = "opacity 0.5s";
-            bootScreen.style.opacity = "0";
+            await new Promise(r => setTimeout(r, 400));
+            
+            bootScreen.style.opacity = '0';
+            bootScreen.style.transform = 'scale(1.02)';
             
             setTimeout(() => {
                 bootScreen.classList.add('hidden');
-                mainInterface.classList.remove('hidden');
-                mainInterface.classList.add('flex');
-                renderTable();
-                startClock();
-            }, 500);
+                terminal.classList.remove('hidden');
+                initApp();
+            }, 600);
         }
 
-        function renderTable() {
-            const tbody = document.getElementById('wallet-body');
-            const countEl = document.getElementById('asset-count');
-            tbody.innerHTML = '';
+        function initApp() {
+            updateTime();
+            setInterval(updateTime, 1000);
+            renderWallet();
+        }
 
-            countEl.textContent = walletData.length;
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = 
+                now.toLocaleTimeString('en-US', { hour12: false });
+        }
 
-            walletData.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                tr.style.animation = `fadeIn 0.3s ease forwards ${index * 0.05}s`;
-                tr.style.opacity = '0';
-
-                const statusClass = item.status === "Active" ? 'status-merged' : 'status-open';
-                const address = walletAddresses[item.coin];
-
-                tr.innerHTML = `
-                    <td data-label="ID">#${item.id}</td>
-                    <td data-label="COIN" class="font-bold text-lg">${item.coin}</td>
-                    <td data-label="NETWORK">${item.network}</td>
-                    <td data-label="STATUS" class="${statusClass} font-bold tracking-wider">${item.status.toUpperCase()}</td>
-                    <td data-label="ACTION"><button onclick="copyAddress('${item.coin}', '${address}')" class="hover:text-white hover:shadow-[0_0_10px_#fff] transition-all border border-[#ffb000] px-3 py-1 bg-[#1a1a1a] text-xs">[COPY_ADDRESS]</button></td>
+        function renderWallet() {
+            const container = document.getElementById('wallet-list');
+            document.getElementById('asset-count').textContent = walletData.length;
+            container.innerHTML = '';
+            
+            walletData.forEach((item, i) => {
+                const card = document.createElement('div');
+                card.className = 'wallet-card';
+                card.style.animationDelay = `${i * 0.05}s`;
+                
+                card.innerHTML = `
+                    <div class="wallet-header">
+                        <div>
+                            <div class="wallet-coin">${item.coin}</div>
+                            <div class="wallet-network">${item.network}</div>
+                        </div>
+                        <div class="status-badge">ACTIVE</div>
+                    </div>
+                    <div class="wallet-address">${item.address}</div>
+                    <div class="wallet-actions">
+                        <button class="btn-copy" onclick="copyAddress('${item.coin}', '${item.address}', this)">
+                            [COPY ADDRESS]
+                        </button>
+                    </div>
                 `;
-                tbody.appendChild(tr);
+                container.appendChild(card);
             });
         }
 
-        function copyAddress(coin, address) {
+        function copyAddress(coin, address, btn) {
             navigator.clipboard.writeText(address).then(() => {
-                const statusText = document.getElementById('status-text');
-                statusText.textContent = `${coin}_ADDRESS_COPIED`;
-                statusText.style.color = '#0f0';
+                const statusEl = document.getElementById('footer-status');
+                statusEl.textContent = `${coin}_COPIED`;
+                statusEl.style.color = 'var(--green)';
+                
+                btn.classList.add('copied');
+                btn.textContent = '✓ COPIED';
                 
                 setTimeout(() => {
-                    statusText.textContent = 'READY';
-                    statusText.style.color = '';
+                    statusEl.textContent = 'READY';
+                    statusEl.style.color = '';
+                    btn.classList.remove('copied');
+                    btn.textContent = '[COPY ADDRESS]';
                 }, 2000);
             }).catch(err => {
-                console.error('Failed to copy:', err);
-                const statusText = document.getElementById('status-text');
-                statusText.textContent = 'COPY_FAILED';
-                statusText.style.color = '#f00';
+                const statusEl = document.getElementById('footer-status');
+                statusEl.textContent = 'COPY_FAILED';
+                statusEl.style.color = 'var(--red)';
             });
         }
-
-        function startClock() {
-            const clockEl = document.getElementById('clock');
-            setInterval(() => {
-                const now = new Date();
-                clockEl.textContent = now.toLocaleTimeString('en-US', { hour12: false });
-            }, 1000);
-        }
-
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateX(-10px); }
-                to { opacity: 1; transform: translateX(0); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
 
         document.addEventListener('DOMContentLoaded', runBootSequence);
     </script>
