@@ -65,16 +65,19 @@
         </div>
 
         <!-- Controls -->
-        <div class="mb-4 flex flex-wrap gap-4 items-center justify-between bg-[#1a1a1a] p-3 border border-[#ffb000]">
-            <div class="flex gap-4 items-center flex-wrap">
-                <span class="animate-pulse text-[#0f0]">● ONLINE</span>
-                <span class="uppercase tracking-widest hidden sm:inline">Filter_View:</span>
-                <select id="status-filter" class="bg-black border border-[#ffb000] text-[#ffb000] p-1 font-inherit focus:outline-none focus:shadow-[0_0_10px_#ffb000] cursor-pointer">
+        <div class="mb-4 flex flex-wrap gap-2 sm:gap-4 items-start sm:items-center justify-between bg-[#1a1a1a] p-2 sm:p-3 border border-[#ffb000]">
+            <div class="flex flex-wrap gap-2 items-center w-full sm:w-auto">
+                <span class="animate-pulse text-[#0f0] text-sm sm:text-base">● ONLINE</span>
+                <span class="uppercase tracking-widest hidden sm:inline text-sm">Filter_View:</span>
+                <select id="status-filter" class="bg-black border border-[#ffb000] text-[#ffb000] p-2 sm:p-1 font-inherit focus:outline-none focus:shadow-[0_0_10px_#ffb000] cursor-pointer w-full sm:w-auto min-h-[44px]">
                     <option value="all">ALL_RECORDS</option>
                     <option value="merged">MERGED</option>
                     <option value="open">OPEN</option>
                 </select>
-                <div class="text-xs opacity-70 border-l border-[#ffb000] pl-4 ml-2">
+                <select id="language-filter" class="bg-black border border-[#ffb000] text-[#ffb000] p-2 sm:p-1 font-inherit focus:outline-none focus:shadow-[0_0_10px_#ffb000] cursor-pointer w-full sm:w-auto min-h-[44px]">
+                    <option value="all">ALL_LANGS</option>
+                </select>
+                <div class="text-xs opacity-70 border-l border-[#ffb000] pl-2 sm:pl-4 ml-0 sm:ml-2 w-full sm:w-auto">
                     RECORDS: <span id="record-count">0</span>
                 </div>
             </div>
@@ -92,6 +95,7 @@
                         <th>REPOSITORY</th>
                         <th>NAME</th>
                         <th>DATE</th>
+                        <th>LANG</th>
                         <th>STATUS</th>
                         <th>NOTES</th>
                     </tr>
@@ -188,20 +192,28 @@
                 bootScreen.classList.add('hidden');
                 mainInterface.classList.remove('hidden');
                 mainInterface.classList.add('flex');
-                renderTable('all');
+                initLanguageFilter();
+                renderTable();
                 startClock();
             }, 500);
         }
 
-        function renderTable(filter) {
+        function renderTable() {
             const tbody = document.getElementById('portfolio-body');
             const countEl = document.getElementById('record-count');
+            const statusFilter = document.getElementById('status-filter').value;
+            const languageFilter = document.getElementById('language-filter').value;
             tbody.innerHTML = '';
 
             const filteredData = portfolioData.filter(item => {
-                if (filter === 'all') return true;
-                if (filter === 'merged') return item.status.toLowerCase().includes('merged');
-                if (filter === 'open') return item.status.toLowerCase().includes('open');
+                if (statusFilter !== 'all') {
+                    if (statusFilter === 'merged' && !item.status.toLowerCase().includes('merged')) return false;
+                    if (statusFilter === 'open' && !item.status.toLowerCase().includes('open')) return false;
+                }
+                if (languageFilter !== 'all') {
+                    const itemLang = (item.language || '-').toLowerCase();
+                    if (itemLang !== languageFilter.toLowerCase()) return false;
+                }
                 return true;
             });
 
@@ -217,12 +229,13 @@
                 const pullUrl = `${repoUrl}/pull/${item.id}`;
 
                 tr.innerHTML = `
-                    <td><a href="${pullUrl}" target="_blank">#${item.id}</a></td>
-                    <td><a href="${repoUrl}" target="_blank">${item.repo}</a></td>
-                    <td>${item.name}</td>
-                    <td>${item.date}</td>
-                    <td class="${statusClass} font-bold tracking-wider">${item.status}</td>
-                    <td class="opacity-80 italic">${item.notes}</td>
+                    <td data-label="ID"><a href="${pullUrl}" target="_blank">#${item.id}</a></td>
+                    <td data-label="REPO"><a href="${repoUrl}" target="_blank">${item.repo}</a></td>
+                    <td data-label="NAME">${item.name}</td>
+                    <td data-label="DATE">${item.date}</td>
+                    <td data-label="LANG" class="text-[#0f0]">${item.language || '-'}</td>
+                    <td data-label="STATUS" class="${statusClass} font-bold tracking-wider">${item.status}</td>
+                    <td data-label="NOTES" class="opacity-80 italic">${item.notes}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -236,9 +249,19 @@
             }, 1000);
         }
 
-        document.getElementById('status-filter').addEventListener('change', (e) => {
-            renderTable(e.target.value);
-        });
+        document.getElementById('status-filter').addEventListener('change', renderTable);
+        document.getElementById('language-filter').addEventListener('change', renderTable);
+
+        function initLanguageFilter() {
+            const languages = [...new Set(portfolioData.map(item => item.language || '-'))].sort();
+            const langSelect = document.getElementById('language-filter');
+            languages.forEach(lang => {
+                const option = document.createElement('option');
+                option.value = lang;
+                option.textContent = lang.toUpperCase();
+                langSelect.appendChild(option);
+            });
+        }
 
         const styleSheet = document.createElement("style");
         styleSheet.innerText = `

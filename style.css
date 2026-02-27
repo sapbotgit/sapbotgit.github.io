@@ -221,3 +221,133 @@ body {
 .text-dim {
     color: var(--amber-dim);
 }
+
+/* Mobile Responsive Table */
+@media (max-width: 768px) {
+    .retro-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .retro-table thead {
+        display: none;
+    }
+    
+    .retro-table, .retro-table tbody, .retro-table tr, .retro-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .retro-table tr {
+        border: 2px solid var(--amber);
+        margin-bottom: 12px;
+        padding: 10px;
+    }
+    
+    .retro-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 8px;
+        border-bottom: 1px dashed var(--amber-dim);
+        font-size: 0.95rem;
+    }
+    
+    .retro-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--amber);
+        margin-right: 10px;
+        min-width: 70px;
+    }
+    
+    .retro-table td:last-child {
+        border-bottom: none;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+    
+    .text-4xl {
+        font-size: 2rem;
+    }
+    
+    .text-2xl {
+        font-size: 1.25rem;
+    }
+    
+    #main-interface {
+        padding: 12px !important;
+    }
+}
+
+/* Card-based mobile layout */
+@media (max-width: 640px) {
+    .retro-table tr {
+        background: var(--amber-dark);
+        border-width: 1px;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .retro-table tr:hover td {
+        cursor: pointer;
+    }
+    
+    button, select, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .text-4xl {
+        font-size: 1.5rem;
+    }
+    
+    .text-2xl {
+        font-size: 1rem;
+    }
+    
+    #main-interface {
+        padding: 8px !important;
+    }
+    
+    .boot-text {
+        font-size: 0.85rem !important;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    header .text-right {
+        text-align: left;
+    }
+}
+
+/* iPhone SE and small phones (375px) */
+@media (max-width: 400px) {
+    #status-filter, #language-filter {
+        width: 100%;
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    
+    .mb-4 {
+        gap: 8px !important;
+    }
+    
+    .mb-4 > div:first-child {
+        width: 100%;
+    }
+    
+    #status-filter, #language-filter, select {
+        min-height: 44px;
+    }
+}

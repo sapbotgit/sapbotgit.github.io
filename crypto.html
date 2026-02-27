@@ -205,11 +205,11 @@
                 const address = walletAddresses[item.coin];
 
                 tr.innerHTML = `
-                    <td>#${item.id}</td>
-                    <td class="font-bold text-lg">${item.coin}</td>
-                    <td>${item.network}</td>
-                    <td class="${statusClass} font-bold tracking-wider">${item.status.toUpperCase()}</td>
-                    <td><button onclick="copyAddress('${item.coin}', '${address}')" class="hover:text-white hover:shadow-[0_0_10px_#fff] transition-all border border-[#ffb000] px-3 py-1 bg-[#1a1a1a] text-xs">[COPY_ADDRESS]</button></td>
+                    <td data-label="ID">#${item.id}</td>
+                    <td data-label="COIN" class="font-bold text-lg">${item.coin}</td>
+                    <td data-label="NETWORK">${item.network}</td>
+                    <td data-label="STATUS" class="${statusClass} font-bold tracking-wider">${item.status.toUpperCase()}</td>
+                    <td data-label="ACTION"><button onclick="copyAddress('${item.coin}', '${address}')" class="hover:text-white hover:shadow-[0_0_10px_#fff] transition-all border border-[#ffb000] px-3 py-1 bg-[#1a1a1a] text-xs">[COPY_ADDRESS]</button></td>
                 `;
                 tbody.appendChild(tr);
             });
