@@ -2,177 +2,226 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sapbot@portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>sapbot@portfolio · win95 pr explorer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="desktop">
-        <div class="window">
-            <div class="title-bar">
-                <div class="title-bar-text">
-                    <span>👤</span>
-                    <span>About Me</span>
-                </div>
-                <div class="title-bar-controls">
-                    <div class="title-bar-btn">_</div>
-                    <div class="title-bar-btn">□</div>
-                    <div class="title-bar-btn">×</div>
-                </div>
+<div class="desktop">
+    <!-- ABOUT ME WINDOW -->
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-bar-text">
+                <span>👤</span>
+                <span>About Me</span>
             </div>
-            <div class="window-body">
-                <div class="about-section">
-                    <div class="about-text">
-                        <h1>sapbot</h1>
-                        <p>Open Source Contributor • Developer • Translator</p>
-                        <div class="links-group">
-                            <a href="https://github.com/sapbotgit" target="_blank" class="win95-btn">
-                                <span>📁</span> GitHub
-                            </a>
-                            <a href="https://cows.info.gf" target="_blank" class="win95-btn">
-                                <span>🌐</span> Website
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="title-bar-controls">
+                <div class="title-bar-btn">_</div>
+                <div class="title-bar-btn">□</div>
+                <div class="title-bar-btn">×</div>
             </div>
         </div>
-
-        <div class="window">
-            <div class="title-bar">
-                <div class="title-bar-text">
-                    <span>📋</span>
-                    <span>contributions.log</span>
-                </div>
-                <div class="title-bar-controls">
-                    <div class="title-bar-btn">_</div>
-                    <div class="title-bar-btn">□</div>
-                    <div class="title-bar-btn">×</div>
-                </div>
-            </div>
-            <div class="window-body">
-                <div class="section-title">
-                    <span>📂</span>
-                    <span>Pull Requests</span>
-                </div>
-                
-                <div class="inset-panel">
-                    <div class="toolbar">
-                        <button class="toolbar-btn active" id="filter-all">All</button>
-                        <button class="toolbar-btn" id="filter-merged">Merged</button>
-                        <button class="toolbar-btn" id="filter-open">Open</button>
-                    </div>
-                    <div class="contributions-list" id="contributions-list">
+        <div class="window-body">
+            <div class="about-section">
+                <div class="about-text">
+                    <h1>sapbot</h1>
+                    <p>Open Source Contributor • Developer • Translator</p>
+                    <div class="links-group">
+                        <a href="https://github.com/sapbotgit" target="_blank" rel="noopener noreferrer" class="win95-btn">
+                            <span>📁</span> GitHub
+                        </a>
+                        <a href="https://cows.info.gf" target="_blank" rel="noopener noreferrer" class="win95-btn">
+                            <span>🌐</span> Website
+                        </a>
                     </div>
                 </div>
-
-                <div class="status-bar">
-                    <div class="status-bar-section" id="status-count">21 items</div>
-                    <div class="status-bar-section">Connected</div>
-                    <div class="status-bar-section" id="status-time">--:--:--</div>
-                </div>
             </div>
-        </div>
-
-        <div class="footer-links">
-            <a href="/code-doodles.html">[code_doodles]</a>
-            <a href="/crypto.html">[wallet]</a>
         </div>
     </div>
 
-    <script>
-        const portfolioData = [
-            { id: 36, repo: "IV2FI/DrawBot", name: "Translation to russian.", date: "Mar 2, 2024", status: "Merged!", language: "Markdown" },
-            { id: 37, repo: "IV2FI/DrawBot", name: "Chinese translations", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
-            { id: 3, repo: "gd4Ark/star-battle", name: "Russian README", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
-            { id: 3063, repo: "hackclub/sprig", name: "[Sprig App] Trash Out+", date: "Apr 17, 2025", status: "Merged!", language: "JavaScript" },
-            { id: 10, repo: "DJSures/NABU-LIB", name: "Fix a typos", date: "Apr 27, 2025", status: "Merged!", language: "Markdown" },
-            { id: 3091, repo: "hackclub/sprig", name: "[Sprig App] Yet Another Sprig 3D Engine", date: "Apr 30, 2025", status: "Merged!", language: "JavaScript" },
-            { id: 928, repo: "coop-deluxe/sm64coopdx", name: "Corrections of spelling in Russian language", date: "Aug 23, 2025", status: "Merged!", language: "JSON" },
-            { id: 19171, repo: "tldr-pages/tldr", name: "doom: add page", date: "Nov 5, 2025", status: "Merged!", language: "Markdown" },
-            { id: 19285, repo: "tldr-pages/tldr", name: "autoexpect: add page", date: "Nov 8, 2025", status: "Merged!", language: "Markdown" },
-            { id: 52, repo: "libretro/libretro-content", name: "Add CRT Test Patterns", date: "Nov 9, 2025", status: "Merged!", language: "-" },
-            { id: 6045, repo: "lodash/lodash", name: "Document that meanBy can return NaN", date: "Nov 11, 2025", status: "Open.", language: "Markdown" },
-            { id: 19354, repo: "tldr-pages/tldr", name: "bun-feedback: add page", date: "Nov 13, 2025", status: "Merged!", language: "Markdown" },
-            { id: 19407, repo: "tldr-pages/tldr", name: "koji-help: add page", date: "Nov 15, 2025", status: "Merged!", language: "Markdown" },
-            { id: 19501, repo: "tldr-pages/tldr", name: "conda-package: add page", date: "Nov 18, 2025", status: "Merged!", language: "Markdown" },
-            { id: 9082, repo: "microsoft/vscode-docs", name: "Fix issue #8823", date: "Nov 19, 2025", status: "Merged!", language: "Markdown" },
-            { id: 7154, repo: "monkeytypegame/monkeytype", name: "Add quotes from eChat source code", date: "Nov 26, 2025", status: "Merged!", language: "JSON" },
-            { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", language: "Markdown"},
-            { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Translation fixes", date: "Feb 15, 2026", status: "Merged!", language: "JSON"},
-            { id: 21191, repo: "tldr-pages/tldr", name: "zformat: add page", date: "Feb 19, 2026", status: "Merged!", language: "Markdown" },
-            { id: 3732, repo: "hackclub/sprig", name: "[Sprig App] Font Engine", date: "Feb 27, 2025", status: "Merged!", language: "JavaScript" },
-            { id: 3, repo: "Stintik-Official/StintikVPN", name: "Обновить index.html: Сделать чтобы использовалась relative ссылка на изображение вместо absolute", date: "May 19, 2026", status: "Merged!", language: "HTML" },
-            { id: 21, repo: "Stintik-123/StintikVPN", name: "Исправить ссылку на Github", date: "May 28, 2026", status: "Merged!", language: "HTML" },
-            { id: 22, repo: "Stintik-123/StintikVPN", name: "Внедрение в стек Tailwind CSS с целью улучшения дизайна", status: "Open.", language: "HTML" }
-        ];
+    <!-- CONTRIBUTIONS LOG WINDOW -->
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-bar-text">
+                <span>📋</span>
+                <span>contributions.log</span>
+            </div>
+            <div class="title-bar-controls">
+                <div class="title-bar-btn">_</div>
+                <div class="title-bar-btn">□</div>
+                <div class="title-bar-btn">×</div>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="section-title">
+                <span>📂</span>
+                <span>Pull Requests · click PR # to view on GitHub</span>
+            </div>
 
-        let currentFilter = 'all';
+            <div class="inset-panel">
+                <div class="toolbar">
+                    <button class="toolbar-btn active" id="filter-all">All</button>
+                    <button class="toolbar-btn" id="filter-merged">Merged</button>
+                    <button class="toolbar-btn" id="filter-open">Open</button>
+                </div>
+                <div class="contributions-list" id="contributions-list">
+                    <!-- dynamic PR rows appear here with direct links -->
+                </div>
+            </div>
 
-        function renderContributions() {
-            const container = document.getElementById('contributions-list');
-            container.innerHTML = '';
+            <div class="status-bar">
+                <div class="status-bar-section" id="status-count">0 items</div>
+                <div class="status-bar-section">🔗 PR links active</div>
+                <div class="status-bar-section" id="status-time">--:--:--</div>
+            </div>
+        </div>
+    </div>
 
-            const filtered = portfolioData.filter(item => {
-                if (currentFilter === 'all') return true;
-                if (currentFilter === 'merged') return item.status.toLowerCase().includes('merged');
-                if (currentFilter === 'open') return item.status.toLowerCase().includes('open');
-                return true;
-            });
+    <div class="footer-links">
+        <a href="/code-doodles.html">[code_doodles]</a>
+        <a href="/crypto.html">[wallet]</a>
+    </div>
+</div>
 
-            document.getElementById('status-count').textContent = `${filtered.length} items`;
+<script>
+    // complete portfolio dataset – all entries have repo & id to build PR links
+    const portfolioData = [
+        { id: 36, repo: "IV2FI/DrawBot", name: "Translation to russian.", date: "Mar 2, 2024", status: "Merged!", language: "Markdown" },
+        { id: 37, repo: "IV2FI/DrawBot", name: "Chinese translations", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
+        { id: 3, repo: "gd4Ark/star-battle", name: "Russian README", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
+        { id: 3063, repo: "hackclub/sprig", name: "[Sprig App] Trash Out+", date: "Apr 17, 2025", status: "Merged!", language: "JavaScript" },
+        { id: 10, repo: "DJSures/NABU-LIB", name: "Fix a typos", date: "Apr 27, 2025", status: "Merged!", language: "Markdown" },
+        { id: 3091, repo: "hackclub/sprig", name: "[Sprig App] Yet Another Sprig 3D Engine", date: "Apr 30, 2025", status: "Merged!", language: "JavaScript" },
+        { id: 928, repo: "coop-deluxe/sm64coopdx", name: "Corrections of spelling in Russian language", date: "Aug 23, 2025", status: "Merged!", language: "JSON" },
+        { id: 19171, repo: "tldr-pages/tldr", name: "doom: add page", date: "Nov 5, 2025", status: "Merged!", language: "Markdown" },
+        { id: 19285, repo: "tldr-pages/tldr", name: "autoexpect: add page", date: "Nov 8, 2025", status: "Merged!", language: "Markdown" },
+        { id: 52, repo: "libretro/libretro-content", name: "Add CRT Test Patterns", date: "Nov 9, 2025", status: "Merged!", language: "-" },
+        { id: 6045, repo: "lodash/lodash", name: "Document that meanBy can return NaN", date: "Nov 11, 2025", status: "Open.", language: "Markdown" },
+        { id: 19354, repo: "tldr-pages/tldr", name: "bun-feedback: add page", date: "Nov 13, 2025", status: "Merged!", language: "Markdown" },
+        { id: 19407, repo: "tldr-pages/tldr", name: "koji-help: add page", date: "Nov 15, 2025", status: "Merged!", language: "Markdown" },
+        { id: 19501, repo: "tldr-pages/tldr", name: "conda-package: add page", date: "Nov 18, 2025", status: "Merged!", language: "Markdown" },
+        { id: 9082, repo: "microsoft/vscode-docs", name: "Fix issue #8823", date: "Nov 19, 2025", status: "Merged!", language: "Markdown" },
+        { id: 7154, repo: "monkeytypegame/monkeytype", name: "Add quotes from eChat source code", date: "Nov 26, 2025", status: "Merged!", language: "JSON" },
+        { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", language: "Markdown"},
+        { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Translation fixes", date: "Feb 15, 2026", status: "Merged!", language: "JSON"},
+        { id: 21191, repo: "tldr-pages/tldr", name: "zformat: add page", date: "Feb 19, 2026", status: "Merged!", language: "Markdown" },
+        { id: 3732, repo: "hackclub/sprig", name: "[Sprig App] Font Engine", date: "Feb 27, 2025", status: "Merged!", language: "JavaScript" },
+        { id: 3, repo: "Stintik-Official/StintikVPN", name: "Обновить index.html: Сделать чтобы использовалась relative ссылка на изображение вместо absolute", date: "May 19, 2026", status: "Merged!", language: "HTML" },
+        { id: 21, repo: "Stintik-123/StintikVPN", name: "Исправить ссылку на Github", date: "May 28, 2026", status: "Merged!", language: "HTML" },
+        { id: 22, repo: "Stintik-123/StintikVPN", name: "Внедрение в стек Tailwind CSS с целью улучшения дизайна", status: "Open.", language: "HTML" }
+    ];
 
-            filtered.forEach(item => {
-                const row = document.createElement('div');
-                row.className = 'contribution-row';
+    let currentFilter = 'all';
 
-                const statusClass = item.status.toLowerCase().includes('merged') ? 'merged' : 'open';
-                const repoUrl = `https://github.com/${item.repo}`;
-                const pullUrl = `${repoUrl}/pull/${item.id}`;
+    // helper: generate direct GitHub PR link
+    function buildPrUrl(repo, prId) {
+        // repo format: "owner/repo"
+        return `https://github.com/${repo}/pull/${prId}`;
+    }
 
-                row.innerHTML = `
-                    <span class="pr-id">#${item.id}</span>
-                    <span class="pr-status ${statusClass}">${item.status}</span>
-                    <span class="pr-repo">
-                        <a href="${repoUrl}" target="_blank">${item.repo}</a>
-                    </span>
-                    <span class="pr-lang">${item.language || '-'}</span>
-                `;
+    // render contributions with clickable PR links (each PR number becomes a link to review)
+    function renderContributions() {
+        const container = document.getElementById('contributions-list');
+        if (!container) return;
+        container.innerHTML = '';
 
-                container.appendChild(row);
-            });
+        let filtered = portfolioData.filter(item => {
+            if (currentFilter === 'all') return true;
+            if (currentFilter === 'merged') return item.status.toLowerCase().includes('merged');
+            if (currentFilter === 'open') return item.status.toLowerCase().includes('open');
+            return true;
+        });
+
+        // update status bar
+        const statusSpan = document.getElementById('status-count');
+        if (statusSpan) statusSpan.textContent = `${filtered.length} items`;
+
+        if (filtered.length === 0) {
+            const emptyRow = document.createElement('div');
+            emptyRow.className = 'contribution-row';
+            emptyRow.style.gridTemplateColumns = '1fr';
+            emptyRow.style.textAlign = 'center';
+            emptyRow.style.padding = '24px';
+            emptyRow.innerHTML = `<span style="color:#2a2a2a;">✨ no pull requests match filter ✨</span>`;
+            container.appendChild(emptyRow);
+            return;
         }
 
-        function updateTime() {
+        filtered.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'contribution-row';
+
+            // PR direct link URL
+            const prUrl = buildPrUrl(item.repo, item.id);
+            const statusClass = item.status.toLowerCase().includes('merged') ? 'merged' : 'open';
+            const repoUrl = `https://github.com/${item.repo}`;
+
+            // Build row: PR ID with clickable link, status, repo link, language
+            row.innerHTML = `
+                <span class="pr-id">
+                    <a href="${prUrl}" target="_blank" rel="noopener noreferrer" title="View Pull Request #${item.id} on GitHub">#${item.id}</a>
+                </span>
+                <span class="pr-status ${statusClass}">${item.status}</span>
+                <span class="pr-repo">
+                    <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">${item.repo}</a>
+                </span>
+                <span class="pr-lang">${item.language || '—'}</span>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // filter event handlers
+    function initFilters() {
+        const allBtn = document.getElementById('filter-all');
+        const mergedBtn = document.getElementById('filter-merged');
+        const openBtn = document.getElementById('filter-open');
+
+        if (allBtn) {
+            allBtn.addEventListener('click', () => {
+                currentFilter = 'all';
+                document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
+                allBtn.classList.add('active');
+                renderContributions();
+            });
+        }
+        if (mergedBtn) {
+            mergedBtn.addEventListener('click', () => {
+                currentFilter = 'merged';
+                document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
+                mergedBtn.classList.add('active');
+                renderContributions();
+            });
+        }
+        if (openBtn) {
+            openBtn.addEventListener('click', () => {
+                currentFilter = 'open';
+                document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
+                openBtn.classList.add('active');
+                renderContributions();
+            });
+        }
+    }
+
+    // live clock
+    function updateTime() {
+        const timeElement = document.getElementById('status-time');
+        if (timeElement) {
             const now = new Date();
-            document.getElementById('status-time').textContent = 
-                now.toLocaleTimeString('en-US', { hour12: false });
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour12: false });
         }
+    }
 
-        document.getElementById('filter-all').addEventListener('click', function() {
-            currentFilter = 'all';
-            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            renderContributions();
-        });
-
-        document.getElementById('filter-merged').addEventListener('click', function() {
-            currentFilter = 'merged';
-            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            renderContributions();
-        });
-
-        document.getElementById('filter-open').addEventListener('click', function() {
-            currentFilter = 'open';
-            document.querySelectorAll('.toolbar-btn').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            renderContributions();
-        });
-
+    // init everything
+    function init() {
+        renderContributions();
+        initFilters();
         updateTime();
         setInterval(updateTime, 1000);
-        renderContributions();
-    </script>
+    }
+
+    // start the UI
+    init();
+</script>
 </body>
 </html>
