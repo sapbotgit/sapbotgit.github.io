@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>sapbot@portfolio · win95 pr explorer</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* no external CSS changes — only extra inline styles for the new PR title elements */
+        /* everything else respects the original style.css */
+    </style>
 </head>
 <body>
 <div class="desktop">
@@ -65,7 +69,7 @@
                     <button class="toolbar-btn" id="filter-open">Open</button>
                 </div>
                 <div class="contributions-list" id="contributions-list">
-                    <!-- dynamic PR rows appear here with direct links -->
+                    <!-- dynamic PR rows appear here with PR titles included -->
                 </div>
             </div>
 
@@ -84,7 +88,8 @@
 </div>
 
 <script>
-    // complete portfolio dataset – all entries have repo & id to build PR links
+    // complete portfolio dataset – all entries include repo, id, and title (name)
+    // fixed malformed entry (ggml-org/llama.cpp) and kept all original data
     const portfolioData = [
         { id: 36, repo: "IV2FI/DrawBot", name: "Translation to russian.", date: "Mar 2, 2024", status: "Merged!", language: "Markdown" },
         { id: 37, repo: "IV2FI/DrawBot", name: "Chinese translations", date: "Mar 4, 2024", status: "Merged!", language: "Markdown" },
@@ -102,24 +107,25 @@
         { id: 19501, repo: "tldr-pages/tldr", name: "conda-package: add page", date: "Nov 18, 2025", status: "Merged!", language: "Markdown" },
         { id: 9082, repo: "microsoft/vscode-docs", name: "Fix issue #8823", date: "Nov 19, 2025", status: "Merged!", language: "Markdown" },
         { id: 7154, repo: "monkeytypegame/monkeytype", name: "Add quotes from eChat source code", date: "Nov 26, 2025", status: "Merged!", language: "JSON" },
-        { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", language: "Markdown"},
-        { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Translation fixes", date: "Feb 15, 2026", status: "Merged!", language: "JSON"},
+        { id: 21051, repo: "tldr-pages/tldr", name: "disable: add page", date: "Feb 8, 2026", status: "Merged!", language: "Markdown" },
+        { id: 53, repo: "Level-Share-Square/SMC-translations", name: "Translation fixes", date: "Feb 15, 2026", status: "Merged!", language: "JSON" },
         { id: 21191, repo: "tldr-pages/tldr", name: "zformat: add page", date: "Feb 19, 2026", status: "Merged!", language: "Markdown" },
         { id: 3732, repo: "hackclub/sprig", name: "[Sprig App] Font Engine", date: "Feb 27, 2025", status: "Merged!", language: "JavaScript" },
         { id: 3, repo: "Stintik-Official/StintikVPN", name: "Обновить index.html: Сделать чтобы использовалась relative ссылка на изображение вместо absolute", date: "May 19, 2026", status: "Merged!", language: "HTML" },
         { id: 21, repo: "Stintik-123/StintikVPN", name: "Исправить ссылку на Github", date: "May 28, 2026", status: "Merged!", language: "HTML" },
-        { id: 22, repo: "Stintik-123/StintikVPN", name: "Внедрение в стек Tailwind CSS с целью улучшения дизайна", status: "Open.", language: "HTML" }
+        { id: 22, repo: "Stintik-123/StintikVPN", name: "Внедрение в стек Tailwind CSS с целью улучшения дизайна", status: "Open.", language: "HTML" },
+        // fixed the malformed line: proper repo and name separation
+        { id: 23908, repo: "ggml-org/llama.cpp", name: "build: Add vulkan building script", status: "Open.", language: "bash" }
     ];
 
     let currentFilter = 'all';
 
     // helper: generate direct GitHub PR link
     function buildPrUrl(repo, prId) {
-        // repo format: "owner/repo"
         return `https://github.com/${repo}/pull/${prId}`;
     }
 
-    // render contributions with clickable PR links (each PR number becomes a link to review)
+    // render contributions with PR title shown below each row (no CSS changes, inline style only)
     function renderContributions() {
         const container = document.getElementById('contributions-list');
         if (!container) return;
@@ -132,7 +138,7 @@
             return true;
         });
 
-        // update status bar
+        // update status bar counter
         const statusSpan = document.getElementById('status-count');
         if (statusSpan) statusSpan.textContent = `${filtered.length} items`;
 
@@ -148,25 +154,82 @@
         }
 
         filtered.forEach(item => {
+            // create main row container (grid item container, respects original CSS)
             const row = document.createElement('div');
             row.className = 'contribution-row';
 
-            // PR direct link URL
-            const prUrl = buildPrUrl(item.repo, item.id);
-            const statusClass = item.status.toLowerCase().includes('merged') ? 'merged' : 'open';
-            const repoUrl = `https://github.com/${item.repo}`;
+            // --- 1. PR ID (clickable link) ---
+            const prIdSpan = document.createElement('span');
+            prIdSpan.className = 'pr-id';
+            const prLink = document.createElement('a');
+            prLink.href = buildPrUrl(item.repo, item.id);
+            prLink.target = '_blank';
+            prLink.rel = 'noopener noreferrer';
+            prLink.title = `View Pull Request #${item.id} on GitHub`;
+            prLink.textContent = `#${item.id}`;
+            prIdSpan.appendChild(prLink);
+            row.appendChild(prIdSpan);
 
-            // Build row: PR ID with clickable link, status, repo link, language
-            row.innerHTML = `
-                <span class="pr-id">
-                    <a href="${prUrl}" target="_blank" rel="noopener noreferrer" title="View Pull Request #${item.id} on GitHub">#${item.id}</a>
-                </span>
-                <span class="pr-status ${statusClass}">${item.status}</span>
-                <span class="pr-repo">
-                    <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">${item.repo}</a>
-                </span>
-                <span class="pr-lang">${item.language || '—'}</span>
-            `;
+            // --- 2. PR status (merged/open) ---
+            const statusSpanEl = document.createElement('span');
+            const statusClass = item.status.toLowerCase().includes('merged') ? 'merged' : 'open';
+            statusSpanEl.className = `pr-status ${statusClass}`;
+            statusSpanEl.textContent = item.status;
+            row.appendChild(statusSpanEl);
+
+            // --- 3. Repository name (clickable) ---
+            const repoSpan = document.createElement('span');
+            repoSpan.className = 'pr-repo';
+            const repoLink = document.createElement('a');
+            repoLink.href = `https://github.com/${item.repo}`;
+            repoLink.target = '_blank';
+            repoLink.rel = 'noopener noreferrer';
+            repoLink.textContent = item.repo;
+            repoSpan.appendChild(repoLink);
+            row.appendChild(repoSpan);
+
+            // --- 4. Language badge ---
+            const langSpan = document.createElement('span');
+            langSpan.className = 'pr-lang';
+            langSpan.textContent = item.language || '—';
+            row.appendChild(langSpan);
+
+            // --- 5. PR TITLE (new element, fully visible, no CSS change → inline style + full-width row block) ---
+            // we create a div that spans across all columns using grid-column: 1/-1 (inline style)
+            // it also shows the PR title (name field) in a clean, readable area under the metadata.
+            const titleBlock = document.createElement('div');
+            titleBlock.className = 'pr-title-row';   // new class but no external CSS defined, all styling inline
+            // inline style ensures it behaves like a "full-width" block without breaking original grid layout
+            titleBlock.style.gridColumn = '1 / -1';
+            titleBlock.style.marginTop = '6px';
+            titleBlock.style.marginBottom = '4px';
+            titleBlock.style.padding = '4px 8px';
+            titleBlock.style.backgroundColor = '#f5f0e7';
+            titleBlock.style.borderLeft = '3px solid #c0a080';
+            titleBlock.style.fontSize = '12px';
+            titleBlock.style.fontFamily = "'Microsoft Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+            titleBlock.style.color = '#1e1e1e';
+            titleBlock.style.wordBreak = 'break-word';
+            titleBlock.style.borderRadius = '2px';
+            titleBlock.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 0 rgba(0,0,0,0.05)';
+            
+            // optional small icon for readability
+            const titleIcon = document.createElement('span');
+            titleIcon.textContent = '📄 ';
+            titleIcon.style.fontSize = '11px';
+            titleIcon.style.opacity = '0.8';
+            
+            const titleText = document.createTextNode(item.name || 'Untitled pull request');
+            
+            titleBlock.appendChild(titleIcon);
+            titleBlock.appendChild(titleText);
+            
+            // if the PR title is extremely long, make sure it wraps
+            titleBlock.style.whiteSpace = 'normal';
+            
+            row.appendChild(titleBlock);
+            
+            // append the fully built row to contributions list
             container.appendChild(row);
         });
     }
@@ -203,7 +266,7 @@
         }
     }
 
-    // live clock
+    // live clock (status bar time)
     function updateTime() {
         const timeElement = document.getElementById('status-time');
         if (timeElement) {
@@ -220,7 +283,7 @@
         setInterval(updateTime, 1000);
     }
 
-    // start the UI
+    // start UI
     init();
 </script>
 </body>
